@@ -117,10 +117,10 @@ function copyBib() {
                         <a href="https://openaccess.thecvf.com/content/ICCV2025/supplemental/Shehzadi_STEP-DETR_Advancing_DETR-based_ICCV_2025_supplemental.pdf">supplementary</a> /
                         <a href="https://iccv.thecvf.com/media/iccv-2025/Slides/1214_8PMPvKr.pdf">slides</a> /
                         <a href="https://iccv.thecvf.com/media/PosterPDFs/ICCV%202025/1214.png?t=1758726975.4345603">poster</a> /
-                        <!-- BibTeX button -->
+                        <!-- Blue BibTeX link (inline with others) -->
                         <a href="javascript:void(0)" onclick="openBibtex()" style="color:#1a73e8; text-decoration:none; margin-left:6px;">
                         BibTeX
-                        </button>
+                        </a>
                         
                         <!-- Popup Modal -->
                         <div id="bibModal" style="
@@ -132,7 +132,16 @@ function copyBib() {
                           z-index:1000;">
                           
                           <div style="background:white; padding:20px; border-radius:8px; max-width:700px; width:90%; position:relative;">
-                            <pre id="bib" style="white-space:pre-wrap; font-family:monospace;">
+                            
+                            <!-- Close button (top-right, small light grey) -->
+                            <span onclick="closeBibtex()" style="
+                              position:absolute; top:8px; right:12px;
+                              cursor:pointer; font-size:20px; color:#b3b3b3;">
+                              &times;
+                            </span>
+                        
+                            <!-- BibTeX text -->
+                            <pre id="bib" style="white-space:pre-wrap; font-family:monospace; margin-top:15px;">
                         @InProceedings{Shehzadi_2025_ICCV,
                           author    = {Shehzadi, Tahira and Hashmi, Khurram Azeem and Sarode, Shalini and Stricker, Didier and Afzal, Muhammad Zeshan},
                           title     = {STEP-DETR: Advancing DETR-based Semi-Supervised Object Detection with Super Teacher and Pseudo-Label Guided Text Queries},
@@ -143,13 +152,13 @@ function copyBib() {
                         }
                             </pre>
                         
-                            <button onclick="copyBib()" style="padding:6px 12px; position:absolute; top:10px; right:60px; cursor:pointer;">
+                            <!-- Copy button (bottom-left) -->
+                            <button onclick="copyBib()" style="
+                              margin-top:10px; cursor:pointer; padding:5px 12px;
+                              background:white; border:1px solid #b3b3b3; border-radius:4px;">
                               📋 Copy
                             </button>
                         
-                            <button onclick="closeBibtex()" style="padding:6px 12px; position:absolute; top:10px; right:10px; cursor:pointer;">
-                              ❌ Close
-                            </button>
                           </div>
                         </div>
                         
