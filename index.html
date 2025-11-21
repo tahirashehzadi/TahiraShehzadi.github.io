@@ -19,11 +19,12 @@
     </div>
 
 <script>
-function toggleBib() {
-  const box = document.getElementById("bibtexBox");
-  box.style.display = box.style.display === "none" ? "block" : "none";
+function openBibtex() {
+  document.getElementById("bibModal").style.display = "flex";
 }
-
+function closeBibtex() {
+  document.getElementById("bibModal").style.display = "none";
+}
 function copyBib() {
   const bib = document.getElementById("bib").innerText;
   navigator.clipboard.writeText(bib);
@@ -116,26 +117,42 @@ function copyBib() {
                         <a href="https://openaccess.thecvf.com/content/ICCV2025/supplemental/Shehzadi_STEP-DETR_Advancing_DETR-based_ICCV_2025_supplemental.pdf">supplementary</a> /
                         <a href="https://iccv.thecvf.com/media/iccv-2025/Slides/1214_8PMPvKr.pdf">slides</a> /
                         <a href="https://iccv.thecvf.com/media/PosterPDFs/ICCV%202025/1214.png?t=1758726975.4345603">poster</a> /
-                        <button onclick="toggleBib()" style="padding:6px 12px; cursor:pointer;">
-                         BibTeX
-</button>
-
-<div id="bibtexBox" style="display:none; margin-top:12px; position:relative;">
-<pre id="bib" style="font-family: monospace; background:#f4f4f4; padding:15px; border-radius:6px;">
-@InProceedings{Shehzadi_2025_ICCV,
-  author    = {Shehzadi, Tahira and Hashmi, Khurram Azeem and Sarode, Shalini and Stricker, Didier and Afzal, Muhammad Zeshan},
-  title     = {STEP-DETR: Advancing DETR-based Semi-Supervised Object Detection with Super Teacher and Pseudo-Label Guided Text Queries},
-  booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
-  month     = {October},
-  year      = {2025},
-  pages     = {3069-3079}
-}
-</pre>
-
-<button onclick="copyBib()" style="position:absolute; top:10px; right:10px; padding:5px 10px; cursor:pointer;">
-📋 Copy
-</button>
-</div>
+                        <!-- BibTeX button -->
+                        <button onclick="openBibtex()" style="padding:6px 12px; cursor:pointer;">
+                        📄 BibTeX
+                        </button>
+                        
+                        <!-- Popup Modal -->
+                        <div id="bibModal" style="
+                          display:none;
+                          position:fixed;
+                          top:0; left:0; width:100%; height:100%;
+                          background:rgba(0,0,0,0.6);
+                          align-items:center; justify-content:center;
+                          z-index:1000;">
+                          
+                          <div style="background:white; padding:20px; border-radius:8px; max-width:700px; width:90%; position:relative;">
+                            <pre id="bib" style="white-space:pre-wrap; font-family:monospace;">
+                        @InProceedings{Shehzadi_2025_ICCV,
+                          author    = {Shehzadi, Tahira and Hashmi, Khurram Azeem and Sarode, Shalini and Stricker, Didier and Afzal, Muhammad Zeshan},
+                          title     = {STEP-DETR: Advancing DETR-based Semi-Supervised Object Detection with Super Teacher and Pseudo-Label Guided Text Queries},
+                          booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
+                          month     = {October},
+                          year      = {2025},
+                          pages     = {3069-3079}
+                        }
+                            </pre>
+                        
+                            <button onclick="copyBib()" style="padding:6px 12px; position:absolute; top:10px; right:60px; cursor:pointer;">
+                              📋 Copy
+                            </button>
+                        
+                            <button onclick="closeBibtex()" style="padding:6px 12px; position:absolute; top:10px; right:10px; cursor:pointer;">
+                              ❌ Close
+                            </button>
+                          </div>
+                        </div>
+                        
 
                       </td>
                     </tr>
