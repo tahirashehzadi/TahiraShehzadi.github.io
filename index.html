@@ -205,11 +205,20 @@
       text-decoration: underline;
     }
 
+    .publication-item.featured-paper {
+      background: #ffffd0;
+    }
+
+    body.dark .publication-item.featured-paper {
+      background: #4a4a20;
+    }
+
     .featured {
-      background: var(--accent);
-      color: white;
+      background: #e6c200;
+      color: #222;
       padding: 3px 8px;
       font-size: 0.7rem;
+      font-weight: 600;
       border-radius: 6px;
       margin-left: 8px;
       display: inline-block;
@@ -469,7 +478,7 @@
       <ul class="publications-list">
 
         <li>
-          <div class="publication-item">
+          <div class="publication-item featured-paper">
             <div class="publication-text">
               <papertitle>STEP-DETR: Advancing DETR-based Semi-Supervised Object Detection with Super Teacher and Pseudo-Label Guided Text Queries <span class="featured">Featured</span></papertitle>
               T. Shehzadi, K. A. Hashmi, S. Sarode, D. Stricker, M. Z. Afzal &mdash; <em>ICCV</em>, 2025<br/>
@@ -494,7 +503,7 @@
         </li>
 
         <li>
-          <div class="publication-item">
+          <div class="publication-item featured-paper">
             <div class="publication-text">
               <papertitle>Sparse Semi-DETR: Sparse Learnable Queries for Semi-Supervised Object Detection <span class="featured">Featured</span></papertitle>
               T. Shehzadi, K. A. Hashmi, D. Stricker, M. Z. Afzal &mdash; <em>CVPR</em>, 2024<br/>
