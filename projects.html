@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects | Tahira Shehzadi</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;500&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="top-nav">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="index.html#recent">Recent</a>
+      <a href="projects.html" class="active">Projects</a>
+      <a href="publications.html">Publications</a>
+      <a href="cv.html">CV</a>
+      <a href="services.html">Services / Honors</a>
+    </nav>
+  </div>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Projects</h1>
+      <div class="dark-toggle" onclick="toggleDark()">🌙 Dark Mode</div>
+    </div>
+
+    <section id="projects">
+      <div class="project-item">
+        <div class="project-diagram">
+          <img src="figures/Generic.gif" alt="Generic Object Detection">
+        </div>
+        <div class="project-text">
+          <strong>Generic Object Detection in Challenging Visual Environments</strong>
+          <p class="item-meta">Target: Small, Occluded, and Rare Objects</p>
+          This project focuses on improving detection reliability for objects that are small, heavily occluded, or belong to
+          visually rare categories. Traditional detectors often struggle when objects occupy only a few pixels, appear
+          partially hidden, or lack strong representation in the training distribution. The system enhances spatial reasoning
+          for dense scenes, recovers obscured object cues using contextual priors, and stabilizes category confidence for
+          infrequent visual classes, giving consistent performance across crowded environments, long-tail distributions, and
+          real-world edge cases where conventional object detectors tend to fail.
+        </div>
+      </div>
+
+      <div class="project-item">
+        <div class="project-diagram">
+          <img src="figures/DLA.gif" alt="Document Layout Analysis">
+        </div>
+        <div class="project-text">
+          <strong>Unified Document Parsing with Fine-Grained Element Detection</strong>
+          <p class="item-meta">Target: Document Parsing</p>
+          This project focuses on improving detection reliability in complex document images containing diverse and densely
+          arranged visual components. The system enhances spatial reasoning for dense layouts, integrates contextual priors
+          to improve structural coherence, and stabilizes category confidence for components that typically challenge OCR
+          and downstream document understanding. Beyond conventional layout elements such as text blocks, tables, figures,
+          and forms, the pipeline supports citation extraction, handwritten and digital signature detection, strikethrough
+          identification and removal, stamp and watermark localization, and other fine-grained document objects crucial for
+          legal, academic, and financial document processing.
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © 2026 Tahira Shehzadi
+    </footer>
+  </div>
+
+  <script src="darkmode.js"></script>
+</body>
+</html>
