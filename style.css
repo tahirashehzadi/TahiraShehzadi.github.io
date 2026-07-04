@@ -510,6 +510,9 @@ body.dark .publication-item.featured-paper {
 }
 
 .cv-block {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
   background: var(--card);
   border-radius: 12px;
   padding: 18px 22px;
@@ -520,6 +523,22 @@ body.dark .publication-item.featured-paper {
 .cv-block:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.cv-block-logo {
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: white;
+  padding: 6px;
+  object-fit: contain;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+.cv-block-content {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .cv-block-date {
