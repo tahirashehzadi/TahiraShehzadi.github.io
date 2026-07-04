@@ -149,6 +149,62 @@
       margin-top: 60px;
     }
 
+    /* Recent / News feed */
+    .news-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    .news-item {
+      display: flex;
+      gap: 18px;
+      align-items: baseline;
+      padding: 10px 16px;
+      border-radius: 10px;
+      background: var(--card);
+      margin-bottom: 10px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    }
+
+    .news-date {
+      flex: 0 0 90px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .news-text {
+      flex: 1 1 auto;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 600px) {
+      .news-item {
+        flex-direction: column;
+        gap: 4px;
+      }
+    }
+
+    /* Publication group headings */
+    .pub-group-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin: 30px 0 14px 0;
+      display: block;
+    }
+
+    .pub-group-title:first-of-type {
+      margin-top: 10px;
+    }
+
     /* Publications */
     .publications-list {
       list-style: none;
@@ -380,6 +436,7 @@
   <div class="top-nav">
     <nav>
       <a href="#about">About</a>
+      <a href="#recent">Recent</a>
       <a href="#projects">Projects</a>
       <a href="#publications">Publications</a>
       <a href="#services">Services / Honors</a>
@@ -435,6 +492,36 @@
       </p>
     </section>
 
+    <section id="recent">
+      <h2>Recent</h2>
+      <ul class="news-list">
+        <li class="news-item">
+          <div class="news-date">2026</div>
+          <div class="news-text">Joined CeMOS &ndash; Research and Transfer Center, TH Mannheim, as a Postdoctoral Researcher in the Intelligent Systems group.</div>
+        </li>
+        <li class="news-item">
+          <div class="news-date">2026</div>
+          <div class="news-text">Two survey papers published in <em>Sensors</em>: "Semi-Supervised Object Detection" and "Knowledge Distillation in Object Detection."</div>
+        </li>
+        <li class="news-item">
+          <div class="news-date">2025</div>
+          <div class="news-text">Submitted PhD thesis in Computer Science at RPTU Kaiserslautern&ndash;Landau, supervised by Prof. Dr. Didier Stricker.</div>
+        </li>
+        <li class="news-item">
+          <div class="news-date">2025</div>
+          <div class="news-text">STEP-DETR accepted at <strong>ICCV 2025</strong> (main conference); DocSemi and Efficient Additive Attention accepted at ICCV Workshops.</div>
+        </li>
+        <li class="news-item">
+          <div class="news-date">2025</div>
+          <div class="news-text">SemiTabDETR and FD-SSD accepted at ICDAR and MIUA 2025.</div>
+        </li>
+        <li class="news-item">
+          <div class="news-date">2024</div>
+          <div class="news-text">Sparse Semi-DETR accepted at <strong>CVPR 2024</strong>.</div>
+        </li>
+      </ul>
+    </section>
+
     <section id="projects">
       <h2>Projects</h2>
 
@@ -475,6 +562,7 @@
     <section id="publications">
       <h2>Selected Publications <a href="https://scholar.google.com/citations?hl=en&user=-QzlQU8AAAAJ&view_op=list_works" target="_blank" style="font-size:0.9rem;">[Google Scholar]</a></h2>
 
+      <span class="pub-group-title">Semi-Supervised Object Detection</span>
       <ul class="publications-list">
 
         <li>
@@ -522,16 +610,20 @@
         <li>
           <div class="publication-item">
             <div class="publication-text">
-              <papertitle>Object Detection with Transformers: A Review</papertitle>
-              <strong>T. Shehzadi</strong>, K. A. Hashmi, D. Stricker, M. Z. Afzal &mdash; <em>Sensors</em>, 2025<br/>
-              <a href="https://www.mdpi.com/1424-8220/25/19/6025" target="_blank">Paper</a>
-              <a href="https://github.com/mindgarage-shan/transformer_object_detection_survey" target="_blank">Code</a>
+              <papertitle>Mask-Aware Semi-Supervised Object Detection in Floor Plans</papertitle>
+              <strong>T. Shehzadi</strong>, K. A. Hashmi, D. Stricker, M. Z. Afzal &mdash; <em>Sensors</em>, 2022<br/>
+              <a href="https://www.mdpi.com/2076-3417/12/19/9398" target="_blank">Paper</a>
             </div>
             <div class="publication-image-wrapper">
-              <img src="figures/transformer_OD_survey.png" alt="Transformer OD Survey" />
+              <img src="figures/FloorPlan.png" alt="FloorPlan" />
             </div>
           </div>
         </li>
+
+      </ul>
+
+      <span class="pub-group-title">Document Layout &amp; Table Detection</span>
+      <ul class="publications-list">
 
         <li>
           <div class="publication-item">
@@ -562,38 +654,12 @@
         <li>
           <div class="publication-item">
             <div class="publication-text">
-              <papertitle>Classroom-Inspired Multi-mentor Distillation with Adaptive Learning Strategies</papertitle>
-              S. Sarode, M. S. Khan, <strong>T. Shehzadi</strong>, D. Stricker, M. Z. Afzal &mdash; <em>IntelliSys</em>, 2025<br/>
-              <a href="https://link.springer.com/chapter/10.1007/978-3-031-99965-9_19" target="_blank">Paper</a>
-            </div>
-            <div class="publication-image-wrapper">
-              <img src="figures/ClassroomKD.png" alt="ClassroomKD" />
-            </div>
-          </div>
-        </li>
-
-        <li>
-          <div class="publication-item">
-            <div class="publication-text">
               <papertitle>DocSemi: Efficient Document Layout Analysis with Guided Queries</papertitle>
               <strong>T. Shehzadi</strong>, I. Ifza, D. Stricker, M. Z. Afzal &mdash; <em>ICCV Workshop</em>, 2025<br/>
               <a href="https://openaccess.thecvf.com/content/ICCV2025W/VisionDocs/papers/Shehzadi_DocSemi_Efficient_Document_Layout_Analysis_with_Guided_Queries_ICCVW_2025_paper.pdf" target="_blank">Paper</a>
             </div>
             <div class="publication-image-wrapper">
               <img src="figures/DocSemi.png" alt="DocSemi" />
-            </div>
-          </div>
-        </li>
-
-        <li>
-          <div class="publication-item">
-            <div class="publication-text">
-              <papertitle>FD-SSD: Semi-supervised Detection of Bone Fenestration and Dehiscence in Intraoral Images</papertitle>
-              <strong>T. Shehzadi</strong>, I. Ifza, D. Stricker, M. Z. Afzal &mdash; <em>MIUA</em>, 2025<br/>
-              <a href="https://link.springer.com/chapter/10.1007/978-3-031-98691-8_1" target="_blank">Paper</a>
-            </div>
-            <div class="publication-image-wrapper">
-              <img src="figures/FD-SSD.png" alt="FD-SSD" />
             </div>
           </div>
         </li>
@@ -667,6 +733,56 @@
         <li>
           <div class="publication-item">
             <div class="publication-text">
+              <papertitle>Towards End-to-End Semi-Supervised Table Detection with Deformable Transformer</papertitle>
+              <strong>T. Shehzadi</strong>, K. A. Hashmi, M. Liwicki, D. Stricker, M. Z. Afzal &mdash; <em>ICDAR</em>, 2023<br/>
+              <a href="https://link.springer.com/chapter/10.1007/978-3-031-41679-8_4" target="_blank">Paper</a>
+            </div>
+            <div class="publication-image-wrapper">
+              <img src="figures/Def-Semi.png" alt="Def-Semi" />
+            </div>
+          </div>
+        </li>
+
+      </ul>
+
+      <span class="pub-group-title">Medical Imaging</span>
+      <ul class="publications-list">
+
+        <li>
+          <div class="publication-item">
+            <div class="publication-text">
+              <papertitle>FD-SSD: Semi-supervised Detection of Bone Fenestration and Dehiscence in Intraoral Images</papertitle>
+              <strong>T. Shehzadi</strong>, I. Ifza, D. Stricker, M. Z. Afzal &mdash; <em>MIUA</em>, 2025<br/>
+              <a href="https://link.springer.com/chapter/10.1007/978-3-031-98691-8_1" target="_blank">Paper</a>
+            </div>
+            <div class="publication-image-wrapper">
+              <img src="figures/FD-SSD.png" alt="FD-SSD" />
+            </div>
+          </div>
+        </li>
+
+      </ul>
+
+      <span class="pub-group-title">Surveys &amp; Reviews</span>
+      <ul class="publications-list">
+
+        <li>
+          <div class="publication-item">
+            <div class="publication-text">
+              <papertitle>Object Detection with Transformers: A Review</papertitle>
+              <strong>T. Shehzadi</strong>, K. A. Hashmi, D. Stricker, M. Z. Afzal &mdash; <em>Sensors</em>, 2025<br/>
+              <a href="https://www.mdpi.com/1424-8220/25/19/6025" target="_blank">Paper</a>
+              <a href="https://github.com/mindgarage-shan/transformer_object_detection_survey" target="_blank">Code</a>
+            </div>
+            <div class="publication-image-wrapper">
+              <img src="figures/transformer_OD_survey.png" alt="Transformer OD Survey" />
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="publication-item">
+            <div class="publication-text">
               <papertitle>Semi-Supervised Object Detection: A Survey on Progress from CNN to Transformer</papertitle>
               <strong>T. Shehzadi</strong>, I. Ifza, M. Liwicki, D. Stricker, M. Z. Afzal &mdash; <em>Sensors</em>, 2026, Vol. 26(1), p. 310<br/>
               <a href="https://www.mdpi.com/1424-8220/26/1/310" target="_blank">Paper</a>
@@ -690,28 +806,20 @@
           </div>
         </li>
 
-        <li>
-          <div class="publication-item">
-            <div class="publication-text">
-              <papertitle>Towards End-to-End Semi-Supervised Table Detection with Deformable Transformer</papertitle>
-              <strong>T. Shehzadi</strong>, K. A. Hashmi, M. Liwicki, D. Stricker, M. Z. Afzal &mdash; <em>ICDAR</em>, 2023<br/>
-              <a href="https://link.springer.com/chapter/10.1007/978-3-031-41679-8_4" target="_blank">Paper</a>
-            </div>
-            <div class="publication-image-wrapper">
-              <img src="figures/Def-Semi.png" alt="Def-Semi" />
-            </div>
-          </div>
-        </li>
+      </ul>
+
+      <span class="pub-group-title">Other Contributions</span>
+      <ul class="publications-list">
 
         <li>
           <div class="publication-item">
             <div class="publication-text">
-              <papertitle>Mask-Aware Semi-Supervised Object Detection in Floor Plans</papertitle>
-              <strong>T. Shehzadi</strong>, K. A. Hashmi, D. Stricker, M. Z. Afzal &mdash; <em>Sensors</em>, 2022<br/>
-              <a href="https://www.mdpi.com/2076-3417/12/19/9398" target="_blank">Paper</a>
+              <papertitle>Classroom-Inspired Multi-mentor Distillation with Adaptive Learning Strategies</papertitle>
+              S. Sarode, M. S. Khan, <strong>T. Shehzadi</strong>, D. Stricker, M. Z. Afzal &mdash; <em>IntelliSys</em>, 2025<br/>
+              <a href="https://link.springer.com/chapter/10.1007/978-3-031-99965-9_19" target="_blank">Paper</a>
             </div>
             <div class="publication-image-wrapper">
-              <img src="figures/FloorPlan.png" alt="FloorPlan" />
+              <img src="figures/ClassroomKD.png" alt="ClassroomKD" />
             </div>
           </div>
         </li>
