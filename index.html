@@ -1,560 +1,812 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tahira Shehzadi</title>
-    <meta name="description" content="Academic website of Tahira Shehzadi">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;500&display=swap">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="icons/favicon.png">
-  </head>
-  <body>
-    <div class="menu">
-      <a href="#home">Home</a> &nbsp;&nbsp;&nbsp;
-      <a href="#bio">Bio</a> &nbsp;&nbsp;&nbsp;
-      <a href="#projects">Projects</a> &nbsp;&nbsp;&nbsp;
-      <a href="#publications">Publications</a> &nbsp;&nbsp;&nbsp;
-      <a href="#services">Services/Honors</a>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tahira Shehzadi | Research</title>
+  <meta name="description" content="Academic website of Tahira Shehzadi">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;500&display=swap">
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #222;
+      --accent: #1a73e8;
+      --card: #f8f9fa;
+    }
+
+    body.dark {
+      --bg: #121212;
+      --text: #eaeaea;
+      --accent: #8ab4f8;
+      --card: #1e1e1e;
+    }
+
+    body {
+      font-family: 'Lato', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    /* Top nav */
+    .top-nav {
+      background: var(--card);
+      padding: 12px 20px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 40px;
+      font-size: 1rem;
+      font-weight: 500;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .top-nav a {
+      color: var(--accent);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 8px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .top-nav a:hover {
+      background: var(--accent);
+      color: white;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .header-main {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    h1 {
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: #777;
+    }
+
+    .subtitle a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .subtitle a:hover {
+      text-decoration: underline;
+    }
+
+    header nav a {
+      margin-right: 10px;
+      text-decoration: none;
+      color: var(--accent);
+      font-size: 0.9rem;
+    }
+
+    header nav a.badge {
+      background: var(--card);
+      padding: 4px 10px;
+      border-radius: 12px;
+    }
+
+    .header-img-wrapper {
+      margin-left: auto;
+    }
+
+    .profile-img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    section {
+      margin-bottom: 50px;
+    }
+
+    section h2 {
+      margin-top: 40px;
+      padding-bottom: 6px;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .item-meta {
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #777;
+      margin-top: 60px;
+    }
+
+    /* Publications */
+    .publications-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    .publication-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+      margin-bottom: 40px;
+      padding: 15px;
+      border-radius: 12px;
+      background: var(--card);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      flex-wrap: wrap;
+    }
+
+    .publication-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .publication-text {
+      flex: 1 1 400px;
+    }
+
+    .publication-image-wrapper {
+      flex: 0 0 160px;
+    }
+
+    .publication-image-wrapper img {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .publication-text papertitle {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+
+    .publication-text a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-right: 6px;
+    }
+
+    .publication-text a:hover {
+      text-decoration: underline;
+    }
+
+    .featured {
+      background: var(--accent);
+      color: white;
+      padding: 3px 8px;
+      font-size: 0.7rem;
+      border-radius: 6px;
+      margin-left: 8px;
+      display: inline-block;
+    }
+
+    .dark-toggle {
+      cursor: pointer;
+      background: var(--card);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 768px) {
+      .publication-item {
+        flex-direction: column;
+      }
+      .publication-image-wrapper {
+        max-width: 300px;
+      }
+    }
+
+    /* Projects */
+    .project-item {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 30px;
+      padding: 18px;
+      border-radius: 12px;
+      background: var(--card);
+      align-items: center;
+      flex-wrap: wrap;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .project-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .project-diagram {
+      flex: 0 0 200px;
+    }
+
+    .project-diagram img {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .project-text {
+      flex: 1 1 400px;
+    }
+
+    .project-text strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 1.05rem;
+    }
+
+    @media (max-width: 768px) {
+      .project-item {
+        flex-direction: column;
+      }
+      .project-diagram {
+        max-width: 300px;
+        margin: 0 auto;
+      }
+    }
+
+    /* Services / Honors list */
+    .cert-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .cert-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+      border-radius: 12px;
+      background: var(--card);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .cert-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .cert-item a {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .cert-item a:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    .cert-date {
+      font-size: 0.85rem;
+      color: #777;
+    }
+
+    /* BibTeX modal */
+    #bibModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    #bibModal .modal-box {
+      background: var(--bg);
+      color: var(--text);
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 700px;
+      width: 90%;
+      position: relative;
+    }
+
+    #bibModal .modal-close {
+      position: absolute;
+      top: 8px; right: 12px;
+      cursor: pointer;
+      font-size: 20px;
+      color: #b3b3b3;
+    }
+
+    #bib {
+      white-space: pre-wrap;
+      font-family: monospace;
+      margin: 0;
+      text-align: left;
+      font-size: 0.85rem;
+    }
+
+    #bibModal button {
+      margin-top: 10px;
+      cursor: pointer;
+      padding: 5px 12px;
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid #b3b3b3;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="top-nav">
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#publications">Publications</a>
+      <a href="#services">Services / Honors</a>
+    </nav>
+  </div>
+
+  <div class="container">
+    <header>
+      <div class="header-main">
+        <div>
+          <h1>Tahira Shehzadi</h1>
+          <div class="subtitle">
+            AI Researcher at <a href="https://www.cemos.hs-mannheim.de/" target="_blank" rel="noopener">CeMOS</a>
+            | Ph.D. Candidate at <a href="https://rptu.de/" target="_blank" rel="noopener">RPTU</a>
+          </div>
+          <nav>
+            <a href="mailto:tahirashehzadi9@gmail.com">Email</a>
+            <a href="figures/CV.pdf">CV</a>
+            <a href="https://scholar.google.com/citations?user=-QzlQU8AAAAJ&hl=en" target="_blank">Google Scholar</a>
+            <a href="https://x.com/tahira_31" target="_blank">Twitter</a>
+            <a href="https://github.com/tahirashehzadi" target="_blank">GitHub</a>
+            <a class="badge" href="https://www.linkedin.com/in/tahira45/" target="_blank">LinkedIn</a>
+          </nav>
+        </div>
+        <div class="header-img-wrapper">
+          <img src="figures/Tahira.jpeg" alt="Tahira Shehzadi" class="profile-img" />
+        </div>
+      </div>
+      <div class="dark-toggle" onclick="toggleDark()">🌙 Dark Mode</div>
+    </header>
+
+    <section id="about">
+      <h2>About Me</h2>
+      <p>
+        I am an AI Researcher at <a href="https://www.cemos.hs-mannheim.de/" target="_blank" rel="noopener">CeMOS – Research and Transfer Center</a>,
+        Mannheim University of Applied Sciences. I recently submitted my PhD thesis in Computer Science at RPTU Kaiserslautern&ndash;Landau,
+        supervised by Prof. Dr. Didier Stricker, funded by the German Academic Exchange Service
+        (<a href="https://www.daad.de/en/the-daad/who-we-are/" target="_blank" rel="noopener">DAAD</a>). During my doctoral research at the
+        German Research Center for Artificial Intelligence (<a href="https://av.dfki.de/" target="_blank" rel="noopener">DFKI</a>), I advanced
+        robust and efficient visual perception, with a focus on semi-supervised learning, document intelligence, and object detection in
+        challenging and low-annotation environments. My work has resulted in first-author publications at premier venues including
+        CVPR, ICCV, and ICDAR.
+      </p>
+      <p>
+        At DFKI, I led research across multiple large-scale applied AI projects including semi-supervised object detection for complex
+        2D environments, a high-precision multimodal system for document layout analysis under the LUMINOUS project, and medical anomaly
+        detection pipelines for the AIRISE initiative. I also completed an Applied AI Scientist internship at
+        <a href="https://www.tensorlake.ai" target="_blank" rel="noopener">Tensorlake</a>, San Francisco, where I worked on document
+        intelligence systems, led VLM integration for document analysis, and developed data generation and post-processing pipelines
+        for improving document layout, OCR accuracy, and strikethrough detection. My research focuses on multimodal perception,
+        data-efficient learning, and transformer architectures, with a long-term goal of enabling agentic AI systems that can
+        autonomously understand, reason, and act based on visual information.
+      </p>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+
+      <div class="project-item">
+        <div class="project-diagram">
+          <img src="figures/Generic.gif" alt="Generic Object Detection">
+        </div>
+        <div class="project-text">
+          <strong>Generic Object Detection in Challenging Visual Environments</strong>
+          <p class="item-meta">Target: Small, Occluded, and Rare Objects</p>
+          This project focuses on improving detection reliability for objects that are small, heavily occluded, or belong to
+          visually rare categories. Traditional detectors often struggle when objects occupy only a few pixels, appear
+          partially hidden, or lack strong representation in the training distribution. The system enhances spatial reasoning
+          for dense scenes, recovers obscured object cues using contextual priors, and stabilizes category confidence for
+          infrequent visual classes, giving consistent performance across crowded environments, long-tail distributions, and
+          real-world edge cases where conventional object detectors tend to fail.
+        </div>
+      </div>
+
+      <div class="project-item">
+        <div class="project-diagram">
+          <img src="figures/DLA.gif" alt="Document Layout Analysis">
+        </div>
+        <div class="project-text">
+          <strong>Unified Document Parsing with Fine-Grained Element Detection</strong>
+          <p class="item-meta">Target: Document Parsing</p>
+          This project focuses on improving detection reliability in complex document images containing diverse and densely
+          arranged visual components. The system enhances spatial reasoning for dense layouts, integrates contextual priors
+          to improve structural coherence, and stabilizes category confidence for components that typically challenge OCR
+          and downstream document understanding. Beyond conventional layout elements such as text blocks, tables, figures,
+          and forms, the pipeline supports citation extraction, handwritten and digital signature detection, strikethrough
+          identification and removal, stamp and watermark localization, and other fine-grained document objects crucial for
+          legal, academic, and financial document processing.
+        </div>
+      </div>
+    </section>
+
+    <section id="publications">
+      <h2>Selected Publications <a href="https://scholar.google.com/citations?hl=en&user=-QzlQU8AAAAJ&view_op=list_works" target="_blank" style="font-size:0.9rem;">[Google Scholar]</a></h2>
+
+      <ul class="publications-list">
+
+        <li>
+          <div class="publication-item">
+            <div class="publication-text">
+              <papertitle>STEP-DETR: Advancing DETR-based Semi-Supervised Object Detection with Super Teacher and Pseudo-Label Guided Text Queries <span class="featured">Featured</span></papertitle>
+              T. Shehzadi, K. A. Hashmi, S. Sarode, D. Stricker, M. Z. Afzal &mdash; <em>ICCV</em>, 2025<br/>
+              <a href="https://openaccess.thecvf.com/content/ICCV2025/papers/Shehzadi_STEP-DETR_Advancing_DETR-based_Semi-Supervised_Object_Detection_with_Super_Teacher_and_ICCV_2025_paper.pdf" target="_blank">Paper</a>
+              <a href="https://openaccess.thecvf.com/content/ICCV2025/supplemental/Shehzadi_STEP-DETR_Advancing_DETR-based_ICCV_2025_supplemental.pdf" target="_blank">Supplementary</a>
+              <a href="https://iccv.thecvf.com/media/iccv-2025/Slides/1214_8PMPvKr.pdf" target="_blank">Slides</a>
+              <a href="https://iccv.thecvf.com/media/PosterPDFs/ICCV%202025/1214.png?t=1758726975.4345603" target="_blank">Poster</a>
+              <a href="javascript:void(0)" onclick="openBibtex('bib-step')">BibTeX</a>
+              <pre id="bib-step" class="bib-source" style="display:none;">@InProceedings{Shehzadi_2025_ICCV,
+  author    = {Shehzadi, Tahira and Hashmi, Khurram Azeem and Sarode, Shalini and Stricker, Didier and Afzal, Muhammad Zeshan},
+  title     = {STEP-DETR: Advancing DETR-based Semi-Supervised Object Detection with Super Teacher and Pseudo-Label Guided Text Queries},
+  booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
+  month     = {October},
+  year      = {2025},
+  pages     = {3069-3079}
+}</pre>
+            </div>
+            <div class="publication-image-wrapper">
+              <img src="figures/STEP.png" alt="STEP-DETR" />
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="publication-item">
+            <div class="publication-text">
+              <papertitle>Sparse Semi-DETR: Sparse Learnable Queries for Semi-Supervised Object Detection <span class="featured">Featured</span></papertitle>
+              T. Shehzadi, K. A. Hashmi, D. Stricker, M. Z. Afzal &mdash; <em>CVPR</em>, 2024<br/>
+              <a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Shehzadi_Sparse_Semi-DETR_Sparse_Learnable_Queries_for_Semi-Supervised_Object_Detection_CVPR_2024_paper.pdf" target="_blank">Paper</a>
+              <a href="https://www.youtube.com/watch?v=lCjCveKC8ys&ab_channel=TahiraShehzadi" target="_blank">Video</a>
+              <a href="https://openaccess.thecvf.com/content/CVPR2024/supplemental/Shehzadi_Sparse_Semi-DETR_Sparse_CVPR_2024_supplemental.pdf" target="_blank">Supplementary</a>
+              <a href="https://cvpr.thecvf.com/media/cvpr-2024/Slides/30138.pdf" target="_blank">Slides</a>
+              <a href="https://cvpr.thecvf.com/media/PosterPDFs/CVPR%202024/30138.png?t=1717582596.821112" target="_blank">Poster</a>
+            </div>
+            <div class="publication-image-wrapper">
+              <img src="figures/sparse_semidetr.jpeg" alt="Sparse Semi-DETR" />
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="publication-item">
+            <div class="publication-text">
+              <papertitle>Object Detection with Transformers: A Review</papertitle>
+              T. Shehzadi, K. A. Hashmi, D. Stricker, M. Z. Afzal &mdash; <em>Sensors</em>, 2025<br/>
+              <a href="https://www.mdpi.com/1424-8220/25/19/6025" target="_blank">Paper</a>
+              <a href="https://github.com/mindgarage-shan/transformer_object_detection_survey" target="_blank">Code</a>
+            </div>
+            <div class="publication-image-wrapper">
+              <img src="figures/transformer_OD_survey.png" alt="Transformer OD Survey" />
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="publication-item">
+            <div class="publication-text">
+              <papertitle>SemiTabDETR: End-to-End Semi-Supervised Table Detection with Transformer-based Enhanced Query Approach</papertitle>
+              T. Shehzadi, D. Stricker, M. Z. Afzal &mdash; <em>ICDAR</em>, 2025<br/>
+              <a href="https://link.springer.com/chapter/10.1007/978-3-032-04614-7_15" target="_blank">Paper</a>
+            </div>
+            <div class="publication-image-wrapper">
+              <img src="figures/SemiTabDETR.png" alt="SemiTabDETR" />
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="publication-item">
+            <div class="publication-text">
+              <papertitle>Efficient Additive Attention for Transformer-based Semi-supervised Document Layout Analysis</papertitle>
+              T. Shehzadi, I. Ifza, D. Stricker, M. Z. Afzal &mdash; <em>ICCV Workshop</em>, 2025<br/>
+              <a href="https://openaccess.thecvf.com/content/ICCV2025W/WiCV/papers/Shehzadi_Efficient_Additive_Attention_for_Transformer-based_Semi-supervised_Document_Layout_Analysis_ICCVW_2025_paper.pdf" target="_blank">Paper</a>
+            </div>
+            <div class="publication-image-wrapper">
+              <img src="figures/Additive.png" alt="Additive Attention" />
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="publication-item">
+            <div class="publication-text">
+              <papertitle>Classroom-Inspired Multi-mentor Distillation with Adaptive Learning Strategies</papertitle>
+              S. Sarode, M. S. Khan, T. Shehzadi, D. Stricker, M. Z. Afzal &mdash; <em>IntelliSys</em>, 2025<br/>
+              <a href="https://link.springer.com/chapter/10.1007/978-3-031-99965-9_19" target="_blank">Paper</a>
+            </div>
+            <div class="publication-image-wrapper">
+              <img src="figures/ClassroomKD.png" alt="ClassroomKD" />
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="publication-item">
+            <div class="publication-text">
+              <papertitle>DocSemi: Efficient Document Layout Analysis with Guided Queries</papertitle>
+              T. Shehzadi, I. Ifza, D. Stricker, M. Z. Afzal &mdash; <em>ICCV Workshop</em>, 2025<br/>
+              <a href="https://openaccess.thecvf.com/content/ICCV2025W/VisionDocs/papers/Shehzadi_DocSemi_Efficient_Document_Layout_Analysis_with_Guided_Queries_ICCVW_2025_paper.pdf" target="_blank">Paper</a>
+            </div>
+            <div class="publication-image-wrapper">
+              <img src="figures/DocSemi.png" alt="DocSemi" />
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="publication-item">
+            <div class="publication-text">
+              <papertitle>FD-SSD: Semi-supervised Detection of Bone Fenestration and Dehiscence in Intraoral Images</papertitle>
+              T. Shehzadi, I. Ifza, D. Stricker, M. Z. Afzal &mdash; <em>MIUA</em>, 2025<br/>
+              <a href="https://link.springer.com/chapter/10.1007/978-3-031-98691-8_1" target="_blank">Paper</a>
+            </div>
+            <div class="publication-image-wrapper">
+              <img src="figures/FD-SSD.png" alt="FD-SSD" />
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="publication-item">
+            <div class="publication-text">
+              <papertitle>A Hybrid Approach for Document Layout Analysis in Document Images</papertitle>
+              T. Shehzadi, D. Stricker, M. Z. Afzal &mdash; <em>ICDAR</em>, 2024<br/>
+              <a href="https://link.springer.com/chapter/10.1007/978-3-031-70546-5_2" target="_blank">Paper</a>
+            </div>
+            <div class="publication-image-wrapper">
+              <img src="figures/Hybrid-DETR.png" alt="Hybrid" />
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="publication-item">
+            <div class="publication-text">
+              <papertitle>Towards End-to-End Semi-Supervised Table Detection with Semantic Aligned Matching Transformer</papertitle>
+              T. Shehzadi, S. Sarode, D. Stricker, M. Z. Afzal &mdash; <em>ICDAR</em>, 2024<br/>
+              <a href="https://link.springer.com/chapter/10.1007/978-3-031-70549-6_18" target="_blank">Paper</a>
+            </div>
+            <div class="publication-image-wrapper">
+              <img src="figures/SAM.png" alt="SAM" />
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="publication-item">
+            <div class="publication-text">
+              <papertitle>Enhanced Bank Check Security: Introducing a Novel Dataset and Transformer-Based Approach for Detection and Verification</papertitle>
+              M. S. Khan*, T. Shehzadi*, R. Noor, D. Stricker, M. Z. Afzal &mdash; <em>ICDAR Workshop</em>, 2024<br/>
+              <a href="https://link.springer.com/chapter/10.1007/978-3-031-70442-0_3" target="_blank">Paper</a>
+              <a href="https://github.com/tahirashehzadi/bank-check-security/blob/main/README.md" target="_blank">Code</a>
+            </div>
+            <div class="publication-image-wrapper">
+              <img src="figures/BankCheck.png" alt="BankCheck" />
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="publication-item">
+            <div class="publication-text">
+              <papertitle>End-to-End Semi-Supervised Approach with Modulated Object Queries for Table Detection in Documents</papertitle>
+              I. Ehsan, T. Shehzadi, D. Stricker, M. Z. Afzal &mdash; <em>IJDAR</em>, 2024<br/>
+              <a href="https://link.springer.com/article/10.1007/s10032-024-00471-0" target="_blank">Paper</a>
+            </div>
+            <div class="publication-image-wrapper">
+              <img src="figures/IJDAR24.png" alt="IJDAR" />
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="publication-item">
+            <div class="publication-text">
+              <papertitle>UnSupDLA: Towards Unsupervised Document Layout Analysis</papertitle>
+              T. Sheikh*, T. Shehzadi*, R. Noor, D. Stricker, M. Z. Afzal &mdash; <em>ICDAR Workshop</em>, 2024<br/>
+              <a href="https://link.springer.com/chapter/10.1007/978-3-031-70442-0_9" target="_blank">Paper</a>
+            </div>
+            <div class="publication-image-wrapper">
+              <img src="figures/UnSupDLA.png" alt="UnSupDLA" />
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="publication-item">
+            <div class="publication-text">
+              <papertitle>Semi-Supervised Object Detection: A Survey on Progress from CNN to Transformer</papertitle>
+              T. Shehzadi, I. Ifza, D. Stricker, M. Z. Afzal &mdash; <em>arXiv</em>, 2024<br/>
+              <a href="https://arxiv.org/pdf/2407.08460" target="_blank">Paper</a>
+            </div>
+            <div class="publication-image-wrapper">
+              <img src="figures/Semi-Review.png" alt="Semi-Review" />
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="publication-item">
+            <div class="publication-text">
+              <papertitle>Towards End-to-End Semi-Supervised Table Detection with Deformable Transformer</papertitle>
+              T. Shehzadi, K. A. Hashmi, M. Liwicki, D. Stricker, M. Z. Afzal &mdash; <em>ICDAR</em>, 2023<br/>
+              <a href="https://link.springer.com/chapter/10.1007/978-3-031-41679-8_4" target="_blank">Paper</a>
+            </div>
+            <div class="publication-image-wrapper">
+              <img src="figures/Def-Semi.png" alt="Def-Semi" />
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="publication-item">
+            <div class="publication-text">
+              <papertitle>Mask-Aware Semi-Supervised Object Detection in Floor Plans</papertitle>
+              T. Shehzadi, K. A. Hashmi, D. Stricker, M. Z. Afzal &mdash; <em>Sensors</em>, 2022<br/>
+              <a href="https://www.mdpi.com/2076-3417/12/19/9398" target="_blank">Paper</a>
+            </div>
+            <div class="publication-image-wrapper">
+              <img src="figures/FloorPlan.png" alt="FloorPlan" />
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="publication-item">
+            <div class="publication-text">
+              <papertitle>Geometric Features and Traffic Dynamic Analysis on 4-leg Intersections</papertitle>
+              W. Saeed, M. S. Saleh, M. N. Gull, H. Raza, R. Saeed, T. Shehzadi &mdash; <em>IRASE</em>, 2021<br/>
+              <a href="https://akjournals.com/view/journals/1848/15/2/article-p171.xml" target="_blank">Paper</a>
+            </div>
+            <div class="publication-image-wrapper">
+              <img src="figures/Traffic.png" alt="Traffic" />
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="publication-item">
+            <div class="publication-text">
+              <papertitle>Protein Active Site Prediction for Early Drug Discovery and Designing</papertitle>
+              A. Yousaf, T. Shehzadi, A. Farooq, Komal Ilyas &mdash; <em>IRASE</em>, 2021<br/>
+              <a href="https://www.researchgate.net/publication/354444464_Protein_active_site_prediction_for_early_drug_discovery_and_designing" target="_blank">Paper</a>
+            </div>
+            <div class="publication-image-wrapper">
+              <img src="figures/Protein-Pred.png" alt="Protein" />
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="publication-item">
+            <div class="publication-text">
+              <papertitle>Intelligent Predictor Using Cancer-Related Biologically Information Extraction from Cancer Transcriptomes</papertitle>
+              T. Shehzadi, A. Majid, M. Hameed, A. Farooq, A. Yousaf &mdash; <em>RAEE & CS</em>, 2020<br/>
+              <a href="https://ieeexplore.ieee.org/document/9265692" target="_blank">Paper</a>
+            </div>
+            <div class="publication-image-wrapper">
+              <img src="figures/Cancer-pred.png" alt="Cancer-Pred" />
+            </div>
+          </div>
+        </li>
+
+      </ul>
+    </section>
+
+    <section id="services">
+      <h2>Services / Honors</h2>
+
+      <ul class="cert-list">
+        <li class="cert-item">
+          <div>
+            <strong>Reviewer of Conferences</strong>
+            <div class="cert-date">NeurIPS 2026, CVPR 2026, WACV 2025, ICDAR 2025, MIUA 2025</div>
+          </div>
+        </li>
+        <li class="cert-item">
+          <div>
+            <strong>DAAD Fellowship</strong>
+            <div class="cert-date">PhD Scholarship, 2021&ndash;2026</div>
+          </div>
+        </li>
+        <li class="cert-item">
+          <div>
+            <strong>NSF Travel Grant</strong>
+            <div class="cert-date">For WiML Workshop at NeurIPS 2024</div>
+          </div>
+        </li>
+        <li class="cert-item">
+          <div>
+            <strong>PIEAS Fellowship</strong>
+            <div class="cert-date">Merit-based full scholarship for Master's studies</div>
+          </div>
+        </li>
+        <li class="cert-item">
+          <div>
+            <strong>Academic Excellence Medals Nomination</strong>
+            <div class="cert-date">Two nominations, Intermediate Studies, 2014</div>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <footer>
+      © 2026 Tahira Shehzadi
+    </footer>
+  </div>
+
+  <!-- BibTeX Modal -->
+  <div id="bibModal">
+    <div class="modal-box">
+      <span class="modal-close" onclick="closeBibtex()">&times;</span>
+      <pre id="bib"></pre>
+      <button onclick="copyBib()">📋 Copy</button>
     </div>
+  </div>
 
-<script>
-function openBibtex() {
-  document.getElementById("bibModal").style.display = "flex";
-}
-function closeBibtex() {
-  document.getElementById("bibModal").style.display = "none";
-}
-function copyBib() {
-  const bib = document.getElementById("bib").innerText;
-  navigator.clipboard.writeText(bib);
-  alert("BibTeX copied to clipboard!");
-}
-</script>
+  <script>
+    function toggleDark() {
+      document.body.classList.toggle('dark');
+    }
 
-    <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-      <tr>
-        <td style="padding:20px;width:100%;vertical-align:middle">
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-            <tr id="home">
-              <td style="padding:20px;width:67%;vertical-align:middle">
-                <span class="name">Tahira Shehzadi</span>
-                <p class="information">
-                  Machine Learning Engineer at <a href="https://av.dfki.de/">DFKI</a>
-                  and Ph.D. Candidate at <a href="https://rptu.de/">RPTU</a>
-                </p>
-                <p class="information">
-                  <a href="mailto:tahirashehzadi9@gmail.com">Email</a> &nbsp;/&nbsp;
-                  <a href="figures/CV.pdf">CV</a> &nbsp;/&nbsp;
-                  <a href="https://scholar.google.com/citations?user=-QzlQU8AAAAJ&hl=en">Google Scholar</a> &nbsp;/&nbsp;
-                  <a href="https://x.com/tahira_31">Twitter</a> &nbsp;/&nbsp;
-                  <a href="https://github.com/tahirashehzadi">GitHub</a> &nbsp;/&nbsp;
-                  <a href="https://www.linkedin.com/in/tahira45/">LinkedIn</a>
-                </p>
-              </td>
-              <td style="padding:20px;width:33%;vertical-align:middle">
-                <img class="dp" src="figures/Tahira.jpeg" alt="Profile photo">
-              </td>
-            </tr>
-          </table>
+    function openBibtex(sourceId) {
+      const source = document.getElementById(sourceId).innerText;
+      document.getElementById('bib').innerText = source;
+      document.getElementById('bibModal').style.display = 'flex';
+    }
 
-         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-            <tr id="bio">
-              <td style="padding:20px;width:100%;vertical-align:middle">   
-                <span class="section">About Me</span>
-                <p class="bio">
-                  I am an AI Researcher at <a href="https://www.cemos.hs-mannheim.de/">CeMOS – Research and Transfer Center</a>, Mannheim University of Applied Sciences. I recently submitted my PhD thesis in Computer Science at RPTU Kaiserslautern–Landau, supervised by Prof. Dr. Didier Stricker, funded by the German Academic Exchange Service (<a href="https://www.daad.de/en/the-daad/who-we-are/">DAAD</a>). During my doctoral research at the German Research Center for Artificial Intelligence (<a href="https://av.dfki.de/">DFKI</a>), I advanced robust and efficient visual perception, with a focus on semi-supervised learning, document intelligence, and object detection in challenging and low-annotation environments. My work has resulted in first-author publications at premier venues including CVPR, ICCV and ICDAR.
-                </p><p class="bio">
-                  At DFKI, I led research across multiple large-scale applied AI projects including semi-supervised object detection for complex 2D environments, a high-precision multimodal system for document layout analysis under the LUMINOUS project, and medical anomaly detection pipelines for the AIRISE initiative. I also completed an Applied AI Scientist internship at <a href="https://www.tensorlake.ai">Tensorlake</a>, San Francisco, where I worked on document intelligence systems, led VLM integration for document analysis, and developed data generation and post-processing pipelines for improving document layout, OCR accuracy, and strikethrough detection.
-                  My research focuses on multimodal perception, data-efficient learning, and transformer architectures, with a long-term goal of enabling agentic AI systems that can autonomously understand, reason, and act based on visual information.
-                </p>
-              </td>
-            </tr>
-          </table>
-     
+    function closeBibtex() {
+      document.getElementById('bibModal').style.display = 'none';
+    }
 
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-            <tr id="projects">
-              <td style="padding:20px;width:100%;vertical-align:middle">
-                <span class="section">Projects</span>
-
-                 <div class="paper">
-                  <table>
-                    <tr>
-                      <td>
-                        <img src="figures/Generic.gif" alt="Generic Object Detection" style="width:280px; height:auto;">
-                        <br>
-                        <em><b>Target:</b> Small, Occluded, and Rare Objects</em>
-                      </td>
-                      <td>
-                        <papertitle>Generic Object Detection in Challenging Visual Environments</papertitle>
-                        <p style="text-align: justify; hyphens: auto;">
-                        This project focuses on improving detection reliability for objects that are small, heavily occluded, or belong to visually rare categories. Traditional detectors often struggle when objects occupy only a few pixels, appear partially hidden, or lack strong representation in the training distribution. The system enhances spatial reasoning for dense scenes, recovers obscured object cues using contextual priors, and stabilizes category confidence for infrequent visual classes. This results in consistent performance across crowded environments, long-tail distributions, and real-world edge cases where conventional object detectors tend to fail.
-                        </p>  
-                       </td>
-                    </tr>
-                  </table>
-
-                  <div class="paper">
-                  <table>
-                    <tr>
-                      <td>
-                        <img src="figures/DLA.gif" alt="Document Layout Analysis" style="width:280px; height:auto;">
-                        <br>
-                        <em><b>Target: </b>Document parsing</em>
-                      </td>
-                      <td>
-                        <papertitle>Unified Document Parsing with Fine-Grained Element Detection</papertitle>
-                         <p style="text-align: justify; hyphens: auto;">
-                        This project focuses on improving detection reliability in complex document images containing diverse and densely arranged visual components. The system enhances spatial reasoning for dense layouts, integrates contextual priors to improve structural coherence, and stabilizes category confidence for components that typically challenge OCR and downstream document understanding. Beyond conventional layout elements such as text blocks, tables, figures, and forms, the pipeline supports citation extraction, handwritten and digital signature detection, strikethrough identification and removal, stamp and watermark localization, and other fine-grained document objects that are crucial for legal, academic, and financial document processing.
-                        </p>    
-                      </td>
-                    </tr>
-                  </table> 
-
-           
-                </div>
-              </td>
-            </tr>
-          </table>
-
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-            <tr id="publications">
-              <td style="padding:0 20px 20px 20px;width:100%;vertical-align:middle">
-                <span class="section">Selected Publications <a href="https://scholar.google.com/citations?hl=en&user=-QzlQU8AAAAJ&view_op=list_works&gmla=AKzYXQ395pvOGxVB2znK2FIWSZ10ysJDAOfREEUd7hPJvnITdOF7k8ienlGwg1x55gQNZOIuv_m12-gyxytDnjGE">[Google Scholar]</a></span>
-
-                 <div class="paper" style="background-color: #ffffd0">
-                  <table>
-                    <tr>
-                      <td>
-                        <img src="figures/STEP.png" alt="STEP-DETR">
-                      </td>
-                      <td>
-                        <papertitle>STEP-DETR: Advancing DETR-based Semi-Supervised Object Detection with Super Teacher and Pseudo-Label Guided Text Queries</papertitle>
-                        <strong>T. Shehzadi</strong>, K.A.Hashmi, S.Sarode, D.Stricker, M.Z.Afzal
-                        <br>
-                        <em>ICCV</em>, 2025
-                        <br>
-                        <a href="https://openaccess.thecvf.com/content/ICCV2025/papers/Shehzadi_STEP-DETR_Advancing_DETR-based_Semi-Supervised_Object_Detection_with_Super_Teacher_and_ICCV_2025_paper.pdf">Paper</a> /
-                        <a href="https://openaccess.thecvf.com/content/ICCV2025/supplemental/Shehzadi_STEP-DETR_Advancing_DETR-based_ICCV_2025_supplemental.pdf">Supplementary</a> /
-                        <a href="https://iccv.thecvf.com/media/iccv-2025/Slides/1214_8PMPvKr.pdf">Slides</a> /
-                        <a href="https://iccv.thecvf.com/media/PosterPDFs/ICCV%202025/1214.png?t=1758726975.4345603">Poster</a> /
-                        <a href="javascript:void(0)" onclick="openBibtex()" style="color:#1a73e8; text-decoration:none; margin-left:6px;">
-                        BibTeX
-                        </a>
-                        <!-- Popup Modal -->
-                        <div id="bibModal" style="display:none;position:fixed;top:0; left:0; width:100%; height:100%;background:rgba(0,0,0,0.6);align-items:center; justify-content:center;z-index:1000;">
-                          <div style="background:white; padding:20px; border-radius:8px; max-width:700px; width:90%; position:relative;">
-                            
-                            <!-- Close button (top-right, small light grey) -->
-                            <span onclick="closeBibtex()" style="
-                              position:absolute; top:8px; right:12px;
-                              cursor:pointer; font-size:20px; color:#b3b3b3;">
-                              &times;
-                            </span>
-                        
-                            <!-- BibTeX text -->
-                            <pre id="bib" style="white-space:pre-wrap; font-family:monospace; margin:0; text-align:left;">
-                            @InProceedings{Shehzadi_2025_ICCV,
-                              author    = {Shehzadi, Tahira and Hashmi, Khurram Azeem and Sarode, Shalini and Stricker, Didier and Afzal, Muhammad Zeshan},
-                              title     = {STEP-DETR: Advancing DETR-based Semi-Supervised Object Detection with Super Teacher and Pseudo-Label Guided Text Queries},
-                              booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
-                              month     = {October},
-                              year      = {2025},
-                              pages     = {3069-3079}
-                            }
-                            </pre>
-
-                        
-                            <!-- Copy button (bottom-left) -->
-                            <button onclick="copyBib()" style="
-                              margin-top:10px; cursor:pointer; padding:5px 12px;
-                              background:white; border:1px solid #b3b3b3; border-radius:4px;">
-                              📋 Copy
-                            </button>
-                        
-                          </div>
-                        </div>
-              
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-                
-                <div class="paper" style="background-color: #ffffd0">
-                  <table>
-                    <tr>
-                      <td>
-                        <img src="figures/sparse_semidetr.jpeg" alt="Sparse Semi-DETR">
-                      </td>
-                      <td>
-                        <papertitle>Sparse Semi-DETR: Sparse Learnable Queries for Semi-Supervised Object Detection</papertitle>
-                        <strong>T. Shehzadi</strong>, K.A.Hashmi, D.Stricker, M.Z.Afzal
-                        <br>
-                        <em>CVPR</em>, 2024
-                        <br>
-                        <a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Shehzadi_Sparse_Semi-DETR_Sparse_Learnable_Queries_for_Semi-Supervised_Object_Detection_CVPR_2024_paper.pdf">Paper</a> /
-                        <a href="https://www.youtube.com/watch?v=lCjCveKC8ys&ab_channel=TahiraShehzadi">Video</a> /
-                        <a href="https://openaccess.thecvf.com/content/CVPR2024/supplemental/Shehzadi_Sparse_Semi-DETR_Sparse_CVPR_2024_supplemental.pdf">Supplementary</a> /
-                        <a href="https://cvpr.thecvf.com/media/cvpr-2024/Slides/30138.pdf">Slides</a> /
-                        <a href="https://cvpr.thecvf.com/media/PosterPDFs/CVPR%202024/30138.png?t=1717582596.821112">Poster</a>
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-               
-
-                <div class="paper">
-                  <table>
-                    <tr>
-                      <td>
-                        <img src="figures/transformer_OD_survey.png" alt="Transformer OD Survey">
-                      </td>
-                      <td>
-                        <papertitle>Object Detection with Transformers: A Review</papertitle>
-                        <strong>T. Shehzadi</strong>, K.A.Hashmi, D.Stricker, M.Z.Afzal
-                        <br>
-                        <em>Sensors</em>, 2025
-                        <br>
-                        <a href="https://www.mdpi.com/1424-8220/25/19/6025">Paper</a> /
-                        <a href="https://github.com/mindgarage-shan/transformer_object_detection_survey">Code</a>
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-
-                <div class="paper">
-                  <table>
-                    <tr>
-                      <td>
-                        <img src="figures/SemiTabDETR.png" alt="SemiTabDETR">
-                      </td>
-                      <td>
-                        <papertitle>SemiTabDETR: End-to-End Semi-Supervised Table Detection with Transformer-based Enhanced Query Approach</papertitle>
-                        <strong>T. Shehzadi</strong>, D.Stricker, M.Z.Afzal
-                        <br>
-                        <em>ICDAR</em>, 2025
-                        <br>
-                        <a href="https://link.springer.com/chapter/10.1007/978-3-032-04614-7_15">Paper</a> 
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-
-                <div class="paper">
-                  <table>
-                    <tr>
-                      <td>
-                        <img src="figures/Additive.png" alt="Additive Attention">
-                      </td>
-                      <td>
-                        <papertitle>Efficient Additive Attention for Transformer-based Semi-supervised Document Layout Analysis</papertitle>
-                        <strong>T. Shehzadi</strong>, I.Ifza, D.Stricker, M.Z.Afzal
-                        <br>
-                        <em>ICCV Workshop</em>, 2025
-                        <br>
-                        <a href="https://openaccess.thecvf.com/content/ICCV2025W/WiCV/papers/Shehzadi_Efficient_Additive_Attention_for_Transformer-based_Semi-supervised_Document_Layout_Analysis_ICCVW_2025_paper.pdf">Paper</a> 
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-
-
-                <div class="paper">
-                  <table>
-                    <tr>
-                      <td>
-                        <img src="figures/ClassroomKD.png" alt="ClassroomKD">
-                      </td>
-                      <td>
-                        <papertitle>Classroom-Inspired Multi-mentor Distillation with Adaptive Learning Strategies</papertitle>
-                        S.Sarode, M.S.Khan,<strong>T. Shehzadi</strong>, D.Stricker, M.Z.Afzal
-                        <br>
-                        <em>IntelliSys</em>, 2025
-                        <br>
-                        <a href="https://link.springer.com/chapter/10.1007/978-3-031-99965-9_19">Paper</a> 
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-
-                <div class="paper">
-                  <table>
-                    <tr>
-                      <td>
-                        <img src="figures/DocSemi.png" alt="DocSemi">
-                      </td>
-                      <td>
-                        <papertitle>DocSemi: Efficient Document Layout Analysis with Guided Queries</papertitle>
-                        <strong>T. Shehzadi</strong>, I.Ifza, D.Stricker, M.Z.Afzal
-                        <br>
-                        <em>ICCV Workshop</em>, 2025
-                        <br>
-                        <a href="https://openaccess.thecvf.com/content/ICCV2025W/VisionDocs/papers/Shehzadi_DocSemi_Efficient_Document_Layout_Analysis_with_Guided_Queries_ICCVW_2025_paper.pdf">Paper</a> 
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-
-                <div class="paper">
-                  <table>
-                    <tr>
-                      <td>
-                        <img src="figures/FD-SSD.png" alt="FD-SSD">
-                      </td>
-                      <td>
-                        <papertitle>FD-SSD: Semi-supervised Detection of Bone Fenestration and Dehiscence in Intraoral Images</papertitle>
-                         <strong>T. Shehzadi</strong>, I.Ifza, D.Stricker, M.Z.Afzal
-                        <br>
-                        <em>MIUA</em>, 2025
-                        <br>
-                        <a href="https://link.springer.com/chapter/10.1007/978-3-031-98691-8_1">Paper</a> 
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-
-                <div class="paper">
-                  <table>
-                    <tr>
-                      <td>
-                        <img src="figures/Hybrid-DETR.png" alt="Hybrid">
-                      </td>
-                      <td>
-                        <papertitle>A Hybrid Approach for Document Layout Analysis in Document images</papertitle>
-                        <strong>T. Shehzadi</strong>, D.Stricker, M.Z.Afzal
-                        <br>
-                        <em>ICDAR</em>, 2024
-                        <br>
-                        <a href="https://link.springer.com/chapter/10.1007/978-3-031-70546-5_2">Paper</a> 
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-                
-                 <div class="paper">
-                  <table>
-                    <tr>
-                      <td>
-                        <img src="figures/SAM.png" alt="SAM">
-                      </td>
-                      <td>
-                        <papertitle>Towards End-to-End Semi-Supervised Table Detection with Semantic Aligned Matching Transformer</papertitle>
-                        <strong>T. Shehzadi</strong>, S.Sarode, D.Stricker, M.Z.Afzal
-                        <br>
-                        <em>ICDAR</em>, 2024
-                        <br>
-                        <a href="https://link.springer.com/chapter/10.1007/978-3-031-70549-6_18">Paper</a> 
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-                
-                <div class="paper">
-                  <table>
-                    <tr>
-                      <td>
-                        <img src="figures/BankCheck.png" alt="BankCheck">
-                      </td>
-                      <td>
-                        <papertitle>Enhanced Bank Check Security: Introducing a Novel Dataset and Transformer-Based Approach for Detection and Verification</papertitle>
-                        M.S.Khan*, <strong>T. Shehzadi*</strong>, R.Noor, D.Stricker, M.Z.Afzal
-                        <br>
-                        <em>ICDAR Workshop</em>, 2024
-                        <br>
-                        <a href="https://link.springer.com/chapter/10.1007/978-3-031-70442-0_3">Paper</a> /
-                        <a href="https://github.com/tahirashehzadi/bank-check-security/blob/main/README.md">Code</a> 
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-
-                 <div class="paper">
-                  <table>
-                    <tr>
-                      <td>
-                        <img src="figures/IJDAR24.png" alt="IJDAR">
-                      </td>
-                      <td>
-                        <papertitle>End-to-End Semi-Supervised approach with Modulated Object Queries for Table Detection in Documents</papertitle>
-                        I.Ehsan,<strong>T. Shehzadi</strong>, D.Stricker, M.Z.Afzal
-                        <br>
-                        <em>IJDAR</em>, 2024
-                        <br>
-                        <a href="https://link.springer.com/article/10.1007/s10032-024-00471-0">Paper</a> 
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-
-                <div class="paper">
-                  <table>
-                    <tr>
-                      <td>
-                        <img src="figures/UnSupDLA.png" alt="UnSupDLA">
-                      </td>
-                      <td>
-                        <papertitle>UnSupDLA: Towards Unsupervised Document Layout Analysis</papertitle>
-                        T.Sheikh*, <strong>T. Shehzadi*</strong>, R.Noor, D.Stricker, M.Z.Afzal
-                        <br>
-                        <em>ICDAR Workshop</em>, 2024
-                        <br>
-                        <a href="https://link.springer.com/chapter/10.1007/978-3-031-70442-0_9">Paper</a> 
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-
-                <div class="paper">
-                  <table>
-                    <tr>
-                      <td>
-                        <img src="figures/Semi-Review.png" alt="Semi-Review">
-                      </td>
-                      <td>
-                        <papertitle>Semi-Supervised Object Detection: A Survey on Progress from CNN to Transformer</papertitle>
-                        <strong>T. Shehzadi</strong>, I.Ifza, D.Stricker, M.Z.Afzal
-                        <br>
-                        <em>arXiv</em>, 2024
-                        <br>
-                        <a href="https://arxiv.org/pdf/2407.08460">Paper</a> 
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-
-                <div class="paper">
-                  <table>
-                    <tr>
-                      <td>
-                        <img src="figures/Def-Semi.png" alt="Def-Semi">
-                      </td>
-                      <td>
-                        <papertitle>Towards End-to-End Semi-Supervised Table Detection with Deformable Transformer</papertitle>
-                        <strong>T. Shehzadi</strong>, K.A.Hashmi, M.Liwicki, D.Stricker, M.Z.Afzal
-                        <br>
-                        <em>ICDAR</em>, 2023
-                        <br>
-                        <a href="https://link.springer.com/chapter/10.1007/978-3-031-41679-8_4">Paper</a> 
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-
-               
-                <div class="paper">
-                  <table>
-                    <tr>
-                      <td>
-                        <img src="figures/FloorPlan.png" alt="FloorPlan">
-                      </td>
-                      <td>
-                        <papertitle>Mask-Aware Semi-Supervised Object Detection in Floor Plans</papertitle>
-                        <strong>T. Shehzadi</strong>, K.A.Hashmi, D.Stricker, M.Z.Afzal
-                        <br>
-                        <em>Sensors</em>, 2022
-                        <br>
-                        <a href="https://www.mdpi.com/2076-3417/12/19/9398">Paper</a> 
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-
-
-                <div class="paper">
-                  <table>
-                    <tr>
-                      <td>
-                        <img src="figures/Traffic.png" alt="Traffic">
-                      </td>
-                      <td>
-                        <papertitle>Geometric features and traffic dynamic analysis on 4-leg intersections</papertitle>
-                        W.Saeed, M.S.Saleh, M.N.Gull, H.Raza, R.Saeed, <strong>T. Shehzadi</strong>
-                        <br>
-                        <em>International Review of Applied Sciences and Engineering (IRASE)</em>, 2021
-                        <br>
-                        <a href="https://akjournals.com/view/journals/1848/15/2/article-p171.xml">Paper</a> 
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-
-                <div class="paper">
-                  <table>
-                    <tr>
-                      <td>
-                        <img src="figures/Protein-Pred.png" alt="protein">
-                      </td>
-                      <td>
-                        <papertitle>Protein Active Site Prediction for Early Drug Discovery and Designing</papertitle>
-                        A.Yousaf, <strong>T. Shehzadi</strong>, A.Farooq, Komal Ilyas 
-                        <br>
-                        <em>International Review of Applied Sciences and Engineering (IRASE)</em>, 2021
-                        <br>
-                        <a href="https://www.researchgate.net/publication/354444464_Protein_active_site_prediction_for_early_drug_discovery_and_designing">Paper</a> 
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-
-                <div class="paper">
-                  <table>
-                    <tr>
-                      <td>
-                        <img src="figures/Cancer-pred.png" alt="Cancer-Pred">
-                      </td>
-                      <td>
-                        <papertitle>Intelligent predictor using cancer-related biologically information extraction from cancer transcriptomes</papertitle>
-                        <strong>T. Shehzadi</strong>, A.Majid, M.Hameed, A.Farooq, A.Yousaf
-                        <br>
-                        <em>Recent Advances in Electrical Engineering & Computer Sciences (RAEE & CS)</em>, 2020
-                        <br>
-                        <a href="https://ieeexplore.ieee.org/document/9265692">Paper</a> 
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-
-              
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-            <tr id="services">
-              <td style="padding:20px;width:100%;vertical-align:middle">
-                <span class="section">Services</span>
-                <p class="bio">
-                  <strong>Reviewer of Conferences:</strong><br>
-                  NeurIPS2026, CVPR2026, WACV2025, ICDAR2025, MIUA2025
-                </p>
-              </td>
-            </tr>
-          </table>
-
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-            <tr>
-              <td style="padding:20px;width:100%;vertical-align:middle">
-                <span class="section">Honors & Awards</span>
-                <ul>
-                  <li><strong>DAAD Fellowship</strong>: Received PhD Scholarship (2021–2026)</li>
-                  <li><strong>NSF Travel Grant</strong>: For WiML Workshop at NeurIPS 2024</li>
-                  <li><strong>PIEAS Fellowship</strong>: Received merit based full scholarship for complete Masters</li>
-                  <li>Nominated for the Two Academic Excellence Medals 2014 in Intermediate Studies</li>
-                </ul>
-              </td>
-            </tr>
-          </table>
-
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-            <tr>
-              <td style="padding:20px;width:100%;vertical-align:middle">
-                <p style="text-align:center;font-size:small;">
-                  Template credits: <a href="https://jonbarron.info/">Jon Barron</a>.<br>
-                </p>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-    </table>
-  </body>
+    function copyBib() {
+      const bib = document.getElementById('bib').innerText;
+      navigator.clipboard.writeText(bib);
+      alert('BibTeX copied to clipboard!');
+    }
+  </script>
+</body>
 </html>
-
-
