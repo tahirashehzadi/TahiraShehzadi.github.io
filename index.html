@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="style.css?v=20261118h">
+<link rel="stylesheet" href="style.css?v=20261118j">
 <script>(function(){var d=document.documentElement,t;d.classList.add('js');try{t=localStorage.getItem('theme')}catch(e){}if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))d.classList.add('dark')})();</script>
 </head>
 <body>
@@ -34,15 +34,19 @@
     <h1 id="h-about" tabindex="-1">Tahira Shehzadi</h1>
     <p class="role">AI Researcher at <a href="https://www.cemos.hs-mannheim.de/" target="_blank" rel="noopener">CeMOS</a>, TH Mannheim</p>
     <p class="role sub">Ph.D. candidate at <a href="https://rptu.de/" target="_blank" rel="noopener">RPTU Kaiserslautern-Landau</a></p>
-    <p>I work on robust, data-efficient visual perception: DETR-based object detection, semi-supervised learning and report generation with LLMs. My current work focuses on medical image analysis, explainable AI and few-shot segmentation. My first-author work has appeared at CVPR, ICCV and ICDAR.</p>
-    <p>I did my doctoral research at <a href="https://av.dfki.de/" target="_blank" rel="noopener">DFKI</a> with Prof. Dr. Didier Stricker, funded by <a href="https://www.daad.de/en/the-daad/who-we-are/" target="_blank" rel="noopener">DAAD</a>, leading work on semi-supervised detection, multimodal document layout analysis in the LUMINOUS project and medical anomaly detection in AIRISE. As an Applied AI Scientist at <a href="https://www.tensorlake.ai" target="_blank" rel="noopener">Tensorlake</a>, I built document intelligence systems and led VLM integration.</p>
-    <p>My long-term goal is agentic AI that can understand, reason and act on visual information.</p>
     <div class="actions">
       <a class="btn primary" href="#publications">View publications</a>
       <a class="btn" href="assets/CV.pdf" target="_blank" rel="noopener" data-cv><svg class="ico" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 4v11M7.5 11l4.5 4.5 4.5-4.500M4 20h16"/></svg>Download CV</a>
       <a class="btn" href="#contact">Get in touch</a>
       <a class="btn" href="https://scholar.google.com/citations?user=-QzlQU8AAAAJ&amp;hl=en" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M12 4 2 9.5 12 15l10-5.5z"/><path d="M6 12.5V17c3.5 2.7 8.5 2.7 12 0v-4.5"/></svg>Google Scholar</a>
     </div>
+    <div class="connect-grid">
+      <article><h2>Collaboration</h2><p>Open to research collaborations in medical imaging, explainable AI and LLM report generation.</p><a href="#contact">Get in touch</a></article>
+      <article><h2>Thesis students</h2><p>Master's thesis topic available on evaluating explainable AI methods.</p><a href="#student-projects">View thesis topic</a></article>
+    </div>
+    <p>I work on robust, data-efficient visual perception: DETR-based object detection, semi-supervised learning and report generation with LLMs. My current work focuses on medical image analysis, explainable AI and few-shot segmentation. My first-author work has appeared at CVPR, ICCV and ICDAR.</p>
+    <p>I did my doctoral research at <a href="https://av.dfki.de/" target="_blank" rel="noopener">DFKI</a> with Prof. Dr. Didier Stricker, funded by <a href="https://www.daad.de/en/the-daad/who-we-are/" target="_blank" rel="noopener">DAAD</a>, leading work on semi-supervised detection, multimodal document layout analysis in the LUMINOUS project and medical anomaly detection in AIRISE. As an Applied AI Scientist at <a href="https://www.tensorlake.ai" target="_blank" rel="noopener">Tensorlake</a>, I built document intelligence systems and led VLM integration.</p>
+    <p>My long-term goal is agentic AI that can understand, reason and act on visual information.</p>
   </div>
   <div class="side"><figure class="portrait"><img src="assets/tahira.webp" alt="Portrait of Tahira Shehzadi" width="720" height="770"></figure><figure class="cloud"><canvas id="cloud" role="img" aria-label="Colorful rotating 3D point cloud that changes between medical images, a document, a neural network, a saliency map and a written report"></canvas><figcaption><div id="cloud-copy"><div class="cloud-head"><strong id="cloud-title">Medical imaging</strong><span id="cloud-sub">Chest imaging</span></div><p id="cloud-text">Few-shot segmentation and detection across chest, polyp, skin imaging and more.</p></div><div class="cloud-tabs" role="group" aria-label="Choose a research area"><button type="button" data-cloud="0" data-title="Medical imaging" data-text="Few-shot segmentation and detection across chest, polyp, skin imaging and more." style="--tab:#ec267c" aria-label="Medical imaging"><i></i></button><button type="button" data-cloud="1" data-title="Document intelligence" data-text="Reading layouts, tables and fine details in complex documents." style="--tab:#2563eb" aria-label="Document intelligence"><i></i></button><button type="button" data-cloud="2" data-title="Detection transformers" data-text="DETR-based models that learn to detect objects from limited annotation." style="--tab:#7c3aed" aria-label="Detection transformers"><i></i></button><button type="button" data-cloud="3" data-title="Explainable AI" data-text="Showing why a model made a decision and how far to trust it." style="--tab:#f97316" aria-label="Explainable AI"><i></i></button><button type="button" data-cloud="4" data-title="Report generation" data-text="Using LLMs to turn visual findings into clear, structured reports." style="--tab:#10b981" aria-label="Report generation"><i></i></button></div></figcaption></figure></div>
 </div></div>
@@ -62,10 +66,6 @@
   <span class="face back"><small>Related work</small><span>Object Detection with Transformers (Sensors 2025)</span><span>Semi-Supervised Object Detection (Sensors 2026)</span><span>Knowledge Distillation (Sensors 2026)</span></span>
 </span></a></div></div>
   <aside class="recent"><h2>Recent</h2><ol><li><time>2026</time><p>SPARQ accepted at <strong>WACV 2027</strong>.</p></li><li><time>2026</time><p>Joined CeMOS, TH Mannheim, as an AI Researcher in the Intelligent Systems group.</p></li><li><time>2026</time><p>Two surveys published in <em>Sensors</em>, on semi-supervised object detection and on knowledge distillation in object detection.</p></li><li><time>2025</time><p>Submitted my PhD thesis in Computer Science at RPTU Kaiserslautern-Landau.</p></li><li><time>2025</time><p>STEP-DETR accepted at <strong>ICCV 2025</strong>. DocSemi and Efficient Additive Attention accepted at ICCV Workshops.</p></li><li><time>2025</time><p>SemiTabDETR accepted at ICDAR and FD-SSD at MIUA.</p></li><li><time>2024</time><p>Sparse Semi-DETR accepted at <strong>CVPR 2024</strong>.</p></li></ol></aside>
-</div></div>
-<div class="connect"><div class="wrap connect-grid">
-  <article><h2>Collaboration</h2><p>I welcome research collaborations on medical image analysis, explainable AI, few-shot segmentation and report generation with LLMs.</p><p class="connect-mail"><a href="mailto:t.shehzadi@th-mannheim.de">t.shehzadi@th-mannheim.de</a></p><a class="btn primary" href="#contact">Get in touch</a></article>
-  <article><h2>Thesis students</h2><p>I work with Master's students on thesis projects. A current topic is developing a metric to evaluate explainable AI methods.</p><p class="connect-mail">Intelligent Systems lab, TH Mannheim</p><a class="btn" href="#student-projects">View thesis topic</a></article>
 </div></div>
 </section>
 <section class="page" id="publications" aria-labelledby="h-publications"><div class="wrap narrow"><header class="page-head"><h1 id="h-publications" tabindex="-1">Publications</h1><p class="lead"><a href="https://scholar.google.com/citations?user=-QzlQU8AAAAJ&amp;hl=en" target="_blank" rel="noopener">Full list on Google Scholar</a></p></header>
