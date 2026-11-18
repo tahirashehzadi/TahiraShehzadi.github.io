@@ -62,7 +62,6 @@ a { color: var(--accent); text-underline-offset: 3px; }
 .portrait::after { right: -5px; bottom: -5px; border-width: 0 2px 2px 0; }
 .side { display: grid; gap: 20px; }
 .cloud canvas { display: block; width: 100%; aspect-ratio: 320 / 230; }
-.cloud figcaption { color: var(--muted); font-size: .875rem; font-weight: 500; text-align: center; }
 .band { position: relative; overflow: hidden; padding: 64px 0 72px; background: var(--soft); }
 .band-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 56px; }
 .band h2 { font-size: 1.75rem; }
@@ -138,7 +137,15 @@ a { color: var(--accent); text-underline-offset: 3px; }
 .when { flex: none; color: var(--muted); font-size: .9063rem; line-height: 1.45; text-align: right; }
 .honors li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 20px; padding: 18px 0; border-top: 1px solid var(--line); }
 .honors li:first-child { border-top: 0; }
-.honors h2 { font-size: 1.125rem; line-height: 1.45; }
+.honors h3 { font-size: 1.125rem; line-height: 1.45; }
+.hon-part + .hon-part { margin-top: 52px; }
+.hon-part > h2 { font-size: 1.5rem; }
+.hon-note { margin-top: 4px; color: var(--muted); }
+.hon-part .honors, .venues { margin-top: 18px; }
+.venues { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.venues li { display: grid; gap: 2px; padding: 18px 16px; background: var(--soft); border-top: 2px solid var(--accent); }
+.venues strong { color: var(--ink); font-size: 1.25rem; line-height: 1.2; }
+.venues span { color: var(--muted); font-size: .9375rem; }
 .contacts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 .contact { display: flex; align-items: center; gap: 14px; min-width: 0; padding: 16px 18px; background: var(--card); border: 1px solid var(--line); border-radius: 6px; color: var(--accent); text-decoration: none; }
 a.contact:hover { border-color: var(--accent); }
@@ -172,6 +179,7 @@ pre { overflow: auto; max-height: 50vh; padding: 14px; margin: 0 0 14px; backgro
   .when { text-align: left; }
   .honors li { grid-template-columns: 1fr; gap: 2px; }
   .contacts { grid-template-columns: 1fr; }
+  .venues { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 520px) { .flips { grid-template-columns: 1fr; } .actions .btn { flex: 1 1 100%; justify-content: center; } }
 @media (hover: none) {
