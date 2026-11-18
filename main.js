@@ -93,10 +93,10 @@
 
   // Home page point cloud: one set of points that morphs between shapes from the research areas.
   function startCloud() {
-    var canvas = $('#cloud'), label = $('#cloud-label'), ctx = canvas.getContext('2d');
+    var canvas = $('#cloud'), ctx = canvas.getContext('2d');
     var still = matchMedia('(prefers-reduced-motion: reduce)');
     var COUNT = 1700, HOLD = 5200, MORPH = 1500, FRAME = 1000 / 30;
-    var seed = 7, w = 0, h = 0, color = '#000', last = 0, shown = -1;
+    var seed = 7, w = 0, h = 0, color = '#000', last = 0;
     function rnd() {
       seed = (seed + 0x6D2B79F5) | 0;
       var t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
@@ -217,8 +217,6 @@
       var span = HOLD + MORPH, step = Math.floor(ms / span), local = ms - step * span;
       var from = shapes[step % shapes.length], to = shapes[(step + 1) % shapes.length];
       var raw = Math.max(0, (local - HOLD) / MORPH);
-      var name = raw > .5 ? to.name : from.name;
-      if (name !== shown) { label.textContent = name; shown = name; }
       var yaw = .5 * Math.sin(ms / 4200) + .18, pitch = .16 + .05 * Math.sin(ms / 5300);
       var cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
       var scale = Math.min(w / 2.6, h / 2.6);
