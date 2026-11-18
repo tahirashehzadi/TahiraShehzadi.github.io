@@ -34,6 +34,8 @@
       nextTopic = hash.slice(13);
       if (!$('[data-group="' + nextTopic + '"]')) nextTopic = 'all';
     }
+    var section = hash === 'student-projects';
+    if (section) name = 'projects';
     if (!titles.hasOwnProperty(name)) name = 'about';
     var samePage = name === current;
     current = name;
@@ -49,6 +51,7 @@
       window.scrollTo(0, 0);
       if (!first) $('#h-' + name).focus({ preventScroll: true });
     }
+    if (section) $('#student-projects').scrollIntoView();
   }
 
   function closeMenu() {
