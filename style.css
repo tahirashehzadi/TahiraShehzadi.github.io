@@ -9,8 +9,9 @@
   color-scheme: dark;
 }
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-padding-top: 80px; }
-body { margin: 0; background: var(--bg); color: var(--text); font: 400 1.0625rem/1.65 var(--font); }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 80px; background: var(--bg); }
+.bg-cloud { position: fixed; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; }
+body { margin: 0; color: var(--text); font: 400 1.0625rem/1.65 var(--font); }
 img { display: block; max-width: 100%; height: auto; }
 h1, h2, h3, p, ul, ol, figure { margin: 0; }
 ul, ol { padding: 0; list-style: none; }
@@ -77,7 +78,7 @@ a { color: var(--accent); text-underline-offset: 3px; }
 .cloud-tabs button:hover::before, .cloud-tabs button[aria-pressed="true"]::before { opacity: .45; }
 .cloud-tabs i { background: var(--tab); transform: scaleX(0); transform-origin: left; }
 @keyframes copy-in { from { opacity: 0; transform: translateY(5px); } }
-.band { position: relative; overflow: hidden; padding: 64px 0 72px; background: var(--soft); }
+.band { position: relative; overflow: hidden; padding: 64px 0 72px; background: color-mix(in srgb, var(--soft) 70%, transparent); }
 .band-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 56px; }
 .band h2 { font-size: 1.75rem; }
 .lead { margin-top: 8px; color: var(--muted); font-size: 1.125rem; }
