@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="style.css?v=20261118b">
+<link rel="stylesheet" href="style.css?v=20261118c">
 <script>(function(){var d=document.documentElement,t;d.classList.add('js');try{t=localStorage.getItem('theme')}catch(e){}if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))d.classList.add('dark')})();</script>
 </head>
 <body>
@@ -33,7 +33,7 @@
     <h1 id="h-about" tabindex="-1">Tahira Shehzadi</h1>
     <p class="role">AI Researcher at <a href="https://www.cemos.hs-mannheim.de/" target="_blank" rel="noopener">CeMOS</a>, TH Mannheim</p>
     <p class="role sub">Ph.D. candidate at <a href="https://rptu.de/" target="_blank" rel="noopener">RPTU Kaiserslautern-Landau</a></p>
-    <p>I work on robust, data-efficient visual perception: DETR-based object detection, semi-supervised learning and medical image analysis. My first-author work has appeared at CVPR, ICCV and ICDAR.</p>
+    <p>I work on robust, data-efficient visual perception: DETR-based object detection, semi-supervised learning, medical image analysis, explainable AI and report generation with LLMs. My first-author work has appeared at CVPR, ICCV and ICDAR.</p>
     <p>I did my doctoral research at <a href="https://av.dfki.de/" target="_blank" rel="noopener">DFKI</a> with Prof. Dr. Didier Stricker, funded by <a href="https://www.daad.de/en/the-daad/who-we-are/" target="_blank" rel="noopener">DAAD</a>, leading work on semi-supervised detection, multimodal document layout analysis in the LUMINOUS project and medical anomaly detection in AIRISE. As an Applied AI Scientist at <a href="https://www.tensorlake.ai" target="_blank" rel="noopener">Tensorlake</a>, I built document intelligence systems and led VLM integration.</p>
     <p>My long-term goal is agentic AI that can understand, reason and act on visual information.</p>
     <div class="actions">
@@ -43,7 +43,7 @@
       <a class="btn" href="https://scholar.google.com/citations?user=-QzlQU8AAAAJ&amp;hl=en" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M12 4 2 9.5 12 15l10-5.5z"/><path d="M6 12.5V17c3.5 2.7 8.5 2.7 12 0v-4.5"/></svg>Google Scholar</a>
     </div>
   </div>
-  <div class="side"><figure class="portrait"><img src="assets/tahira.webp" alt="Portrait of Tahira Shehzadi" width="720" height="770"></figure><figure class="cloud"><canvas id="cloud" role="img" aria-label="Colorful rotating 3D point cloud that changes between a brain, a document, a neural network and a 3D detection box"></canvas><figcaption><div id="cloud-copy"><strong id="cloud-title">Medical imaging</strong><p id="cloud-text">Finding clinically relevant structures in medical images with very few labels.</p></div><div class="cloud-tabs" role="group" aria-label="Choose a research area"><button type="button" data-cloud="0" data-title="Medical imaging" data-text="Finding clinically relevant structures in medical images with very few labels." style="--tab:#ec267c" aria-label="Medical imaging"><i></i></button><button type="button" data-cloud="1" data-title="Document intelligence" data-text="Reading layouts, tables and fine details in complex documents." style="--tab:#2563eb" aria-label="Document intelligence"><i></i></button><button type="button" data-cloud="2" data-title="Detection transformers" data-text="DETR-based models that learn to detect objects from limited annotation." style="--tab:#7c3aed" aria-label="Detection transformers"><i></i></button><button type="button" data-cloud="3" data-title="3D perception" data-text="Understanding objects and their shape in three dimensions." style="--tab:#10b981" aria-label="3D perception"><i></i></button></div></figcaption></figure></div>
+  <div class="side"><figure class="portrait"><img src="assets/tahira.webp" alt="Portrait of Tahira Shehzadi" width="720" height="770"></figure><figure class="cloud"><canvas id="cloud" role="img" aria-label="Colorful rotating 3D point cloud that changes between a brain, a document, a neural network, a saliency map and a written report"></canvas><figcaption><div id="cloud-copy"><strong id="cloud-title">Medical imaging</strong><p id="cloud-text">Finding clinically relevant structures in medical images with very few labels.</p></div><div class="cloud-tabs" role="group" aria-label="Choose a research area"><button type="button" data-cloud="0" data-title="Medical imaging" data-text="Finding clinically relevant structures in medical images with very few labels." style="--tab:#ec267c" aria-label="Medical imaging"><i></i></button><button type="button" data-cloud="1" data-title="Document intelligence" data-text="Reading layouts, tables and fine details in complex documents." style="--tab:#2563eb" aria-label="Document intelligence"><i></i></button><button type="button" data-cloud="2" data-title="Detection transformers" data-text="DETR-based models that learn to detect objects from limited annotation." style="--tab:#7c3aed" aria-label="Detection transformers"><i></i></button><button type="button" data-cloud="3" data-title="Explainable AI" data-text="Showing why a model made a decision and how far to trust it." style="--tab:#f97316" aria-label="Explainable AI"><i></i></button><button type="button" data-cloud="4" data-title="Report generation" data-text="Using LLMs to turn visual findings into clear, structured reports." style="--tab:#10b981" aria-label="Report generation"><i></i></button></div></figcaption></figure></div>
 </div></div>
 <div class="band">
 <div class="wrap band-grid">
@@ -258,16 +258,16 @@
 <p class="empty" id="empty" hidden>No papers match this search. Try a shorter term or select All.</p>
 <p class="note">* Equal contribution</p></div></section>
 <section class="page" id="projects" aria-labelledby="h-projects"><div class="wrap narrow"><header class="page-head"><h1 id="h-projects" tabindex="-1">Projects</h1><p class="lead">Applied research on detection in difficult conditions.</p></header><article class="project">
-  <div class="media"><img src="assets/generic-detection.webp" alt="Generic object detection in challenging visual environments demonstration" width="900" height="372" loading="lazy"></div>
+  <div class="media"><img src="assets/generic-detection-hd.webp" alt="Generic object detection in challenging visual environments demonstration" width="1174" height="484" loading="lazy"></div>
   <div><p class="meta">Small, occluded and rare objects</p><h2>Generic object detection in challenging visual environments</h2><p>Detectors often struggle when objects cover only a few pixels, are partly hidden, or barely appear in the training data. This work strengthens spatial reasoning in dense scenes, recovers obscured objects from contextual cues, and stabilizes confidence for rare classes, so detection stays consistent in crowded scenes and long-tail distributions.</p><p class="tags"><span>Small objects</span><span>Occlusion</span><span>Long-tail detection</span></p></div>
 </article><article class="project">
-  <div class="media"><img src="assets/document-parsing.webp" alt="Unified document parsing with fine-grained element detection demonstration" width="900" height="492" loading="lazy"></div>
+  <div class="media"><img src="assets/document-parsing-hd.webp" alt="Unified document parsing with fine-grained element detection demonstration" width="1500" height="820" loading="lazy"></div>
   <div><p class="meta">Document parsing</p><h2>Unified document parsing with fine-grained element detection</h2><p>Complex documents pack many visual components into dense layouts. Beyond text blocks, tables, figures and forms, this pipeline handles citations, handwritten and digital signatures, strikethrough detection and removal, stamps, watermarks and other fine-grained elements that matter in legal, academic and financial documents.</p><p class="tags"><span>Layout analysis</span><span>Signatures and stamps</span><span>Strikethrough removal</span></p></div>
 </article></div></section>
 <section class="page" id="experience" aria-labelledby="h-experience"><div class="wrap narrow"><header class="page-head"><h1 id="h-experience" tabindex="-1">Experience</h1><p class="lead">Research and applied AI roles.</p></header><div class="timeline"><article class="entry">
   <div class="logo"><img src="assets/logo-cemos.webp" alt="CeMOS Research and Transfer Center, TH Mannheim logo" width="240" height="64" loading="lazy"></div>
   <div class="entry-body"><div class="entry-top"><div><h2>AI Researcher</h2><p class="org">CeMOS Research and Transfer Center, TH Mannheim</p></div><p class="when">2026 – Present<br>Mannheim, Germany</p></div>
-  <ul class="points"><li>Research in the Intelligent Systems group.</li></ul><p class="tags"><span>Object detection</span><span>Medical image analysis</span><span>Semi-supervised learning</span></p></div>
+  <ul class="points"><li>Research in the Intelligent Systems group.</li></ul><p class="tags"><span>Object detection</span><span>Medical image analysis</span><span>Semi-supervised learning</span><span>Explainable AI</span><span>LLM report generation</span></p></div>
 </article><article class="entry">
   <div class="logo"><img src="assets/logo-tensorlake.webp" alt="Tensorlake logo" width="240" height="224" loading="lazy"></div>
   <div class="entry-body"><div class="entry-top"><div><h2>Applied AI Scientist</h2><p class="org">Tensorlake</p></div><p class="when">Jan 2025 – Oct 2025<br>USA (remote)</p></div>
@@ -299,6 +299,6 @@
 </main>
 <footer class="foot"><div class="wrap">© 2026 Tahira Shehzadi</div></footer>
 <dialog id="bib" aria-labelledby="bib-t"><div class="dlg-head"><h2 id="bib-t">BibTeX</h2><form method="dialog"><button class="chip-link">Close</button></form></div><pre id="bib-x" tabindex="0"></pre><button class="btn primary" type="button" id="bib-copy">Copy BibTeX</button></dialog>
-<script src="main.js?v=20261118b"></script>
+<script src="main.js?v=20261118c"></script>
 </body>
 </html>
