@@ -44,7 +44,6 @@ a { color: var(--accent); text-underline-offset: 3px; }
 
 /* Home */
 .hero { position: relative; overflow: hidden; padding: 72px 0 80px; }
-.field { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .hero-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 64px; align-items: start; }
 .intro { max-width: 66ch; }
 .intro h1 { font-size: clamp(2.6rem, 6vw, 4rem); letter-spacing: -.02em; line-height: 1.05; }
@@ -61,6 +60,9 @@ a { color: var(--accent); text-underline-offset: 3px; }
 .portrait::before, .portrait::after, .pub::before, .pub::after { content: ""; position: absolute; width: 22px; height: 22px; border: 2px solid var(--accent); pointer-events: none; }
 .portrait::before { left: -5px; top: -5px; border-width: 2px 0 0 2px; }
 .portrait::after { right: -5px; bottom: -5px; border-width: 0 2px 2px 0; }
+.side { display: grid; gap: 20px; }
+.cloud canvas { display: block; width: 100%; aspect-ratio: 320 / 230; }
+.cloud figcaption { color: var(--muted); font-size: .875rem; font-weight: 500; text-align: center; }
 .band { position: relative; overflow: hidden; padding: 64px 0 72px; background: var(--soft); }
 .band-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 56px; }
 .band h2 { font-size: 1.75rem; }
@@ -162,7 +164,7 @@ pre { overflow: auto; max-height: 50vh; padding: 14px; margin: 0 0 14px; backgro
   .wrap, .narrow { width: calc(100% - 36px); }
   .hero { padding: 40px 0 52px; }
   .hero-grid { grid-template-columns: 1fr; gap: 34px; }
-  .portrait { order: -1; width: min(220px, 62%); }
+  .side { order: -1; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 16px; }
   .pub { grid-template-columns: 1fr; padding: 18px; }
   .teaser { order: -1; }
   .entry { grid-template-columns: 1fr; gap: 12px; }
