@@ -73,7 +73,7 @@
   });
   $('#theme').addEventListener('click', function () {
     var dark = root.classList.toggle('dark');
-    try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {}
+    try { localStorage.setItem('site-theme', dark ? 'dark' : 'light'); } catch (e) {}
   });
   $('#q').addEventListener('input', applyFilter);
   $$('[data-bib]').forEach(function (b) {
