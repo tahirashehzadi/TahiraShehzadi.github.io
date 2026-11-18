@@ -100,7 +100,7 @@ a { color: var(--accent); text-underline-offset: 3px; }
 .recent p { color: var(--text); font-size: .9688rem; line-height: 1.5; }
 .recent strong { color: var(--ink); }
 
-.connect-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 24px; }
+.connect-grid { display: grid; gap: 12px; margin-top: 24px; }
 .connect-grid article { display: flex; flex-direction: column; align-items: flex-start; padding: 14px 16px; background: var(--accent-soft); border-left: 3px solid var(--accent); }
 .connect-grid + p { margin-top: 24px; }
 .connect-grid h2 { font-size: 1.0625rem; line-height: 1.3; }
@@ -217,7 +217,6 @@ pre { overflow: auto; max-height: 50vh; padding: 14px; margin: 0 0 14px; backgro
   .when { text-align: left; }
   .honors li { grid-template-columns: 1fr; gap: 2px; }
   .contacts { grid-template-columns: 1fr; }
-  .connect-grid { grid-template-columns: 1fr; }
   .project { grid-template-columns: 1fr; gap: 18px; }
   .work-grid { grid-template-columns: 1fr; }
   .thesis { padding: 18px; }
