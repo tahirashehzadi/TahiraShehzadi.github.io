@@ -338,7 +338,7 @@
       var cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
       var scale = Math.min(w / 2.55, h / 2.5), sweep = t / 3400;
       ctx.clearRect(0, 0, w, h);
-      ctx.globalCompositeOperation = dark ? 'lighter' : 'source-over';
+      ctx.globalCompositeOperation = 'source-over';
       for (var i = 0; i < COUNT; i++) {
         var a = A[i], b = B[i];
         var e = raw ? ease(Math.min(1, Math.max(0, (raw - delay[i]) / .7))) : 0;
@@ -349,66 +349,18 @@
         var c = e ? mix(a[3], b[3], e) : a[3];
         var phase = a[4] + (b[4] - a[4]) * e;
         var wave = calm ? 0 : Math.pow(Math.max(0, Math.cos(TAU * (phase * .75 - sweep))), 12);
-        var size = (1 + near * .9 + wave * 1.3) * p;
+        var size = (1 + near * .9 + wave * .7) * p;
         var sx = w / 2 + x1 * scale * p, sy2 = h / 2 - y1 * scale * p;
         ctx.fillStyle = 'rgb(' + (c[0] | 0) + ',' + (c[1] | 0) + ',' + (c[2] | 0) + ')';
         if (wave > .25) {
-          ctx.globalAlpha = (dark ? .16 : .08) * wave;
+          ctx.globalAlpha = .05 * wave;
           ctx.fillRect(sx - size * 1.7, sy2 - size * 1.7, size * 3.4, size * 3.4);
         }
-        ctx.globalAlpha = Math.min(1, (dark ? .3 : .38) + near * .55 + wave * .4);
+        ctx.globalAlpha = Math.min(1, (dark ? .3 : .38) + near * .55 + wave * .22);
         ctx.fillRect(sx - size / 2, sy2 - size / 2, size, size);
       }
       ctx.globalAlpha = 1;
       ctx.globalCompositeOperation = 'source-over';
-    }
-    // Home page background: two small research shapes drifting slowly in the side margins.
-    var bgCanvas = $('#bg-cloud'), bgCtx = bgCanvas.getContext('2d');
-    var BG_STEP = 2, BG_CYCLE = 12000, BG_MORPH = 1800, BG_FRAME = 50;
-    var vw = 0, vh = 0, bgClock = 0, lastBg = 0, margin = null;
-    var drifters = [[0, .62], [1, .24]].map(function (slot, i) {
-      return { side: slot[0], y: slot[1], start: (i * 2 + 1) % shapes.length, offset: i * 1900, phase: i * 1.7, depth: 1 + (i % 3) * .35 };
-    });
-    function resizeBg() {
-      var dpr = Math.min(devicePixelRatio || 1, 1.5);
-      vw = innerWidth; vh = innerHeight;
-      bgCanvas.width = Math.round(vw * dpr);
-      bgCanvas.height = Math.round(vh * dpr);
-      bgCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      drawBg();
-    }
-    function drawBg() {
-      if (!vw) return;
-      var calm = still.matches, t = calm ? 0 : bgClock * .55;
-      margin = Math.max(0, (vw - 1120) / 2);
-      bgCtx.clearRect(0, 0, vw, vh);
-      if (current !== 'about' || margin < 110) return;
-      var list = drifters, R = Math.max(44, Math.min(70, margin * .36)), strength = 1;
-      var inset = Math.max(R * .55, margin / 2);
-      bgCtx.globalCompositeOperation = dark ? 'lighter' : 'source-over';
-      list.forEach(function (d) {
-        var clockAt = t + d.offset, k = Math.floor(clockAt / BG_CYCLE), local = clockAt - k * BG_CYCLE;
-        var A = shapes[(d.start + k) % shapes.length].pts, B = shapes[(d.start + k + 1) % shapes.length].pts;
-        var e = ease(Math.max(0, (local - (BG_CYCLE - BG_MORPH)) / BG_MORPH));
-        var yaw = .62 * Math.sin(t / 4600 + d.phase), pitch = .22 * Math.sin(t / 6100 + d.phase);
-        var cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
-        var span = vh + R * 3;
-        var y0 = d.y * vh + 22 * Math.sin(t / 5200 + d.phase) - scrollY * .05 * d.depth;
-        y0 = ((y0 + R * 1.5) % span + span) % span - R * 1.5;
-        var x0 = (d.side ? vw - inset : inset) + 16 * Math.sin(t / 6700 + d.phase * 2);
-        for (var i = 0; i < COUNT; i += BG_STEP) {
-          var a = A[i], b = B[i];
-          var x = a[0] + (b[0] - a[0]) * e, y = a[1] + (b[1] - a[1]) * e, z = a[2] + (b[2] - a[2]) * e;
-          var x1 = x * cy + z * sy, z1 = z * cy - x * sy, y1 = y * cp - z1 * sp, z2 = z1 * cp + y * sp;
-          var p = 3.4 / (3.4 - z2), near = Math.min(1, Math.max(0, (z2 + 1) / 2));
-          var c = e ? mix(a[3], b[3], e) : a[3], size = (.8 + near * .6) * p;
-          bgCtx.globalAlpha = strength * ((dark ? .42 : .55) + near * .45);
-          bgCtx.fillStyle = 'rgb(' + (c[0] | 0) + ',' + (c[1] | 0) + ',' + (c[2] | 0) + ')';
-          bgCtx.fillRect(x0 + x1 * R * p - size / 2, y0 - y1 * R * p - size / 2, size, size);
-        }
-      });
-      bgCtx.globalAlpha = 1;
-      bgCtx.globalCompositeOperation = 'source-over';
     }
     function tick(now) {
       requestAnimationFrame(tick);
@@ -416,8 +368,6 @@
       var dt = Math.min(100, now - prev);
       prev = now;
       if (document.hidden || still.matches) return;
-      bgClock += dt;
-      if (bgClock - lastBg >= BG_FRAME) { lastBg = bgClock; drawBg(); }
       if (current !== 'about') return;
       clock += dt;
       if (to !== null && clock - since >= MORPH) { from = to; to = null; since = clock; }
@@ -429,15 +379,12 @@
       lastDraw = clock;
       draw();
     }
-    function readTheme() { dark = root.classList.contains('dark'); draw(); drawBg(); }
+    function readTheme() { dark = root.classList.contains('dark'); draw(); }
     tabs.forEach(function (b, i) { b.addEventListener('click', function () { go(first[i]); }); });
     new MutationObserver(readTheme).observe(root, { attributes: true, attributeFilter: ['class'] });
     new ResizeObserver(resize).observe(canvas);
-    still.addEventListener('change', function () { go(from); drawBg(); });
+    still.addEventListener('change', function () { go(from); });
     dark = root.classList.contains('dark');
-    window.addEventListener('resize', resizeBg);
-    window.addEventListener('hashchange', drawBg);
-    resizeBg();
     setCopy(0);
     if (still.matches) tabs[0].firstChild.style.transform = 'scaleX(1)';
     requestAnimationFrame(tick);
