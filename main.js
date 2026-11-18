@@ -437,12 +437,65 @@
       ctx.globalAlpha = 1;
       ctx.globalCompositeOperation = 'source-over';
     }
+    // Background on every page: small research shapes drifting through the side margins.
+    var bgCanvas = $('#bg-cloud'), bgCtx = bgCanvas.getContext('2d');
+    var BG_STEP = 4, BG_CYCLE = 11000, BG_MORPH = 1800, BG_FRAME = 50;
+    var vw = 0, vh = 0, bgClock = 0, lastBg = 0, margin = null;
+    var drifters = [[0, .16], [1, .3], [0, .54], [1, .68], [0, .9], [1, 1.04]].map(function (slot, i) {
+      return { side: slot[0], y: slot[1], start: (i * 2 + 1) % shapes.length, offset: i * 1900, phase: i * 1.7, depth: 1 + (i % 3) * .35 };
+    });
+    function resizeBg() {
+      var dpr = Math.min(devicePixelRatio || 1, 1.5);
+      vw = innerWidth; vh = innerHeight;
+      bgCanvas.width = Math.round(vw * dpr);
+      bgCanvas.height = Math.round(vh * dpr);
+      bgCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      drawBg();
+    }
+    function drawBg() {
+      if (!vw) return;
+      var calm = still.matches, t = calm ? 0 : bgClock;
+      var target = Math.max(0, (vw - (current === 'about' ? 1120 : 920)) / 2);
+      margin = margin === null || calm ? target : margin + (target - margin) * .06;
+      var phone = vw <= 760, list = phone ? drifters.slice(0, 2) : drifters;
+      var R = Math.max(phone ? 62 : 54, Math.min(125, margin * .46));
+      var strength = margin > 110 ? 1 : phone ? .34 : .5;
+      var inset = Math.max(R * .55, margin / 2);
+      bgCtx.clearRect(0, 0, vw, vh);
+      bgCtx.globalCompositeOperation = dark ? 'lighter' : 'source-over';
+      list.forEach(function (d) {
+        var clockAt = t + d.offset, k = Math.floor(clockAt / BG_CYCLE), local = clockAt - k * BG_CYCLE;
+        var A = shapes[(d.start + k) % shapes.length].pts, B = shapes[(d.start + k + 1) % shapes.length].pts;
+        var e = ease(Math.max(0, (local - (BG_CYCLE - BG_MORPH)) / BG_MORPH));
+        var yaw = t / 7000 + d.phase, pitch = .22 * Math.sin(t / 6100 + d.phase);
+        var cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
+        var span = vh + R * 3;
+        var y0 = d.y * vh + 22 * Math.sin(t / 5200 + d.phase) - scrollY * .05 * d.depth;
+        y0 = ((y0 + R * 1.5) % span + span) % span - R * 1.5;
+        var x0 = (d.side ? vw - inset : inset) + 16 * Math.sin(t / 6700 + d.phase * 2);
+        for (var i = 0; i < COUNT; i += BG_STEP) {
+          var a = A[i], b = B[i];
+          var x = a[0] + (b[0] - a[0]) * e, y = a[1] + (b[1] - a[1]) * e, z = a[2] + (b[2] - a[2]) * e;
+          var x1 = x * cy + z * sy, z1 = z * cy - x * sy, y1 = y * cp - z1 * sp, z2 = z1 * cp + y * sp;
+          var p = 3.4 / (3.4 - z2), near = Math.min(1, Math.max(0, (z2 + 1) / 2));
+          var c = e ? mix(a[3], b[3], e) : a[3], size = (1 + near * .8) * p;
+          bgCtx.globalAlpha = strength * ((dark ? .3 : .26) + near * (dark ? .5 : .5));
+          bgCtx.fillStyle = 'rgb(' + (c[0] | 0) + ',' + (c[1] | 0) + ',' + (c[2] | 0) + ')';
+          bgCtx.fillRect(x0 + x1 * R * p - size / 2, y0 - y1 * R * p - size / 2, size, size);
+        }
+      });
+      bgCtx.globalAlpha = 1;
+      bgCtx.globalCompositeOperation = 'source-over';
+    }
     function tick(now) {
       requestAnimationFrame(tick);
       if (prev === null) prev = now;
       var dt = Math.min(100, now - prev);
       prev = now;
-      if (document.hidden || still.matches || current !== 'about') return;
+      if (document.hidden || still.matches) return;
+      bgClock += dt;
+      if (bgClock - lastBg >= BG_FRAME) { lastBg = bgClock; drawBg(); }
+      if (current !== 'about') return;
       clock += dt;
       if (to !== null && clock - since >= MORPH) { from = to; to = null; since = clock; }
       if (to === null && clock - since >= shapes[from].hold) go((from + 1) % shapes.length);
@@ -453,12 +506,14 @@
       lastDraw = clock;
       draw();
     }
-    function readTheme() { dark = root.classList.contains('dark'); draw(); }
+    function readTheme() { dark = root.classList.contains('dark'); draw(); drawBg(); }
     tabs.forEach(function (b, i) { b.addEventListener('click', function () { go(first[i]); }); });
     new MutationObserver(readTheme).observe(root, { attributes: true, attributeFilter: ['class'] });
     new ResizeObserver(resize).observe(canvas);
-    still.addEventListener('change', function () { go(from); });
+    still.addEventListener('change', function () { go(from); drawBg(); });
     dark = root.classList.contains('dark');
+    window.addEventListener('resize', resizeBg);
+    resizeBg();
     setCopy(0);
     if (still.matches) tabs[0].firstChild.style.transform = 'scaleX(1)';
     requestAnimationFrame(tick);
