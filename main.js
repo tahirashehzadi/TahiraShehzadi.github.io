@@ -159,30 +159,6 @@
       while (out.length < COUNT) rib();
       return out;
     }
-    function breast() {
-      var out = [], ducts = [], spikes = [], i;
-      function shell(x, y, z) { return (x > .6 ? C.magenta : C.pink); }
-      function branch(p, angle, len, depth) {
-        var q = [p[0] - Math.cos(angle) * len, p[1] + Math.sin(angle) * len, p[2] + between(-.06, .06)];
-        ducts.push(p.concat(q));
-        if (depth) { branch(q, angle + between(.2, .5), len * .72, depth - 1); branch(q, angle - between(.2, .5), len * .72, depth - 1); }
-      }
-      for (i = 0; i < 6; i++) branch([.66, -.02, 0], -.72 + i * .29, .27, 3);
-      onSegments(ducts, COUNT * .34, out, function (x) { return ramp([C.magenta, C.violet], (.7 - x) / 1.3); });
-      onSegments([[-.58, -.86, 0, -.58, .86, 0]], COUNT * .04, out, solid(C.slate));
-      ellipsoid([.72, -.02, 0], [.06, .07, .07], COUNT * .02, out, solid(C.magenta));
-      ellipsoid([.08, .34, .14], [.09, .09, .09], COUNT * .06, out, solid(C.orange));
-      for (i = 0; i < 12; i++) { var a = i / 12 * TAU; spikes.push([.08, .34, .14, .08 + .19 * Math.cos(a), .34 + .19 * Math.sin(a), .14]); }
-      onSegments(spikes, COUNT * .04, out, solid(C.orange));
-      onSegments(rect(-.16, .1, .32, .58, .2), COUNT * .05, out, solid(C.amber));
-      while (out.length < COUNT) {
-        var d = onSphere();
-        if (d[0] < 0) d[0] = -d[0];
-        var x = -.58 + d[0] * 1.26, y = d[1] * .86, z = d[2] * .5;
-        out.push([x, y, z, shell(x, y, z)]);
-      }
-      return out;
-    }
     function polyp() {
       var out = [], i;
       ellipsoid([.36, -.3, .16], [.2, .2, .2], COUNT * .17, out, solid(C.green));
@@ -220,55 +196,6 @@
         out.push([sx, top(sx, sz), sz, rnd() < .5 ? C.amber : C.orange]);
       }
       return out.map(function (p) { return [p[0], p[1] * ca - p[2] * sa + .12, p[2] * ca + p[1] * sa, p[3]]; });
-    }
-    function tooth() {
-      var out = [], i;
-      for (i = 0; i < COUNT * .3; i++) {
-        var t = rnd(), a = between(0, TAU), r = .54 * (.84 + .16 * Math.sin(Math.PI * t)) * (1 + .05 * Math.cos(4 * a));
-        out.push([r * Math.cos(a), .16 + .54 * t, r * .8 * Math.sin(a), ramp([C.blue, C.cyan], t)]);
-      }
-      for (i = 0; i < COUNT * .16; i++) {
-        var ca = between(0, TAU), rho = .5 * Math.sqrt(rnd()), cusp = .1 * Math.cos(2 * ca) * (rho / .5) + .07 * Math.cos(4 * ca) * (rho / .5);
-        out.push([rho * Math.cos(ca), .68 + cusp - .08 * (1 - rho / .5), rho * .8 * Math.sin(ca), C.cyan]);
-      }
-      ellipsoid([.25, -.42, .15], [.1, .14, .05], COUNT * .06, out, solid(C.orange));
-      onSegments(rect(.06, -.64, .46, -.2, .26), COUNT * .05, out, solid(C.pink));
-      while (out.length < COUNT) {
-        var s = rnd() < .5 ? -1 : 1, q = rnd(), b = between(0, TAU), rr = .25 * Math.pow(1 - q, .7) + .012;
-        out.push([s * (.21 + .1 * q) + rr * Math.cos(b), .17 - 1.02 * q, rr * .8 * Math.sin(b), ramp([C.green, C.cyan], q * .6)]);
-      }
-      return out;
-    }
-    function rect(x0, y0, x1, y1, z) {
-      return [[x0, y0, z, x1, y0, z], [x1, y0, z, x1, y1, z], [x1, y1, z, x0, y1, z], [x0, y1, z, x0, y0, z]];
-    }
-    function brain() {
-      var out = [], guard = 0, n = COUNT * .86;
-      function region(x, y) {
-        if (x > .34) return C.pink;
-        if (x < -.46) return C.blue;
-        if (y < -.04) return C.orange;
-        return C.violet;
-      }
-      while (out.length < n && guard++ < 120000) {
-        var d = onSphere(), x = d[0], y = d[1], z = d[2];
-        var fold = Math.sin(9 * x + 2.4 * Math.sin(6 * y)) * Math.cos(9 * y + 2.4 * Math.sin(6 * z)) + .55 * Math.sin(10 * z + 3 * x);
-        if (fold < -.12) continue;
-        var r = 1 + .05 * fold;
-        if (y > -.25) r *= 1 - .2 * Math.exp(-(z * z) / .012);
-        var py = y * r * .74;
-        if (py < -.32) py = -.32 + (py + .32) * .55;
-        out.push([x * r * 1.02 + .04 * y, py + .08, z * r * .8, region(x, y)]);
-      }
-      while (out.length < COUNT * .97) {
-        var c = onSphere(), s = 1 + .05 * Math.sin(c[1] * 34);
-        out.push([c[0] * s * .3 - .64, c[1] * s * .2 - .46, c[2] * s * .42, C.green]);
-      }
-      while (out.length < COUNT) {
-        var t = rnd(), a = between(0, TAU);
-        out.push([-.2 - t * .12 + .07 * Math.cos(a), -.42 - t * .46, .07 * Math.sin(a), C.cyan]);
-      }
-      return out;
     }
     function page() {
       var z = .14, out = [], body = [], table = [], i;
@@ -348,10 +275,8 @@
     }
     var shapes = [
       { tab: 0, sub: 'Chest imaging', pts: chest(), axis: function (p) { return (1 - p[1]) / 2; } },
-      { tab: 0, sub: 'Breast imaging', pts: breast(), axis: function (p) { return (1 - p[0]) / 2; } },
       { tab: 0, sub: 'Polyp detection', pts: polyp(), axis: function (p) { return (.6 - p[2]) / 1.6; } },
       { tab: 0, sub: 'Skin lesions', pts: skin(), axis: function (p) { return (p[0] + 1) / 2; } },
-      { tab: 0, sub: 'Dental imaging', pts: tooth(), axis: function (p) { return (.8 - p[1]) / 1.7; } },
       { tab: 1, pts: page(), axis: function (p) { return (1 - p[1]) / 2; } },
       { tab: 2, pts: network(), axis: function (p) { return (p[0] + 1.1) / 2.2; } },
       { tab: 3, pts: attribution(), axis: function (p) { return (p[0] + 1) / 2; } },
@@ -437,11 +362,11 @@
       ctx.globalAlpha = 1;
       ctx.globalCompositeOperation = 'source-over';
     }
-    // Background on every page: small research shapes drifting through the side margins.
+    // Home page background: two small research shapes drifting slowly in the side margins.
     var bgCanvas = $('#bg-cloud'), bgCtx = bgCanvas.getContext('2d');
-    var BG_STEP = 2, BG_CYCLE = 11000, BG_MORPH = 1800, BG_FRAME = 50;
+    var BG_STEP = 2, BG_CYCLE = 12000, BG_MORPH = 1800, BG_FRAME = 50;
     var vw = 0, vh = 0, bgClock = 0, lastBg = 0, margin = null;
-    var drifters = [[0, .16], [1, .3], [0, .54], [1, .68], [0, .9], [1, 1.04]].map(function (slot, i) {
+    var drifters = [[0, .62], [1, .24]].map(function (slot, i) {
       return { side: slot[0], y: slot[1], start: (i * 2 + 1) % shapes.length, offset: i * 1900, phase: i * 1.7, depth: 1 + (i % 3) * .35 };
     });
     function resizeBg() {
@@ -454,14 +379,12 @@
     }
     function drawBg() {
       if (!vw) return;
-      var calm = still.matches, t = calm ? 0 : bgClock;
-      var target = Math.max(0, (vw - (current === 'about' ? 1120 : 920)) / 2);
-      margin = margin === null || calm ? target : margin + (target - margin) * .06;
-      var phone = vw <= 760, list = phone ? drifters.slice(0, 2) : drifters;
-      var R = phone ? 46 : Math.max(44, Math.min(70, margin * .36));
-      var strength = margin > 110 ? 1 : phone ? .42 : .6;
-      var inset = Math.max(R * .55, margin / 2);
+      var calm = still.matches, t = calm ? 0 : bgClock * .55;
+      margin = Math.max(0, (vw - 1120) / 2);
       bgCtx.clearRect(0, 0, vw, vh);
+      if (current !== 'about' || margin < 110) return;
+      var list = drifters, R = Math.max(44, Math.min(70, margin * .36)), strength = 1;
+      var inset = Math.max(R * .55, margin / 2);
       bgCtx.globalCompositeOperation = dark ? 'lighter' : 'source-over';
       list.forEach(function (d) {
         var clockAt = t + d.offset, k = Math.floor(clockAt / BG_CYCLE), local = clockAt - k * BG_CYCLE;
@@ -513,6 +436,7 @@
     still.addEventListener('change', function () { go(from); drawBg(); });
     dark = root.classList.contains('dark');
     window.addEventListener('resize', resizeBg);
+    window.addEventListener('hashchange', drawBg);
     resizeBg();
     setCopy(0);
     if (still.matches) tabs[0].firstChild.style.transform = 'scaleX(1)';
