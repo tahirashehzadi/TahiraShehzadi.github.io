@@ -201,15 +201,41 @@
       });
       return onSegments(links, COUNT - out.length, out, paint);
     }
-    function box3d() {
-      var X = .92, Y = .68, Z = .68, v = [], e = [], out = [], i, j;
-      for (i = 0; i < 8; i++) v.push([i & 1 ? X : -X, i & 2 ? Y : -Y, i & 4 ? Z : -Z]);
-      for (i = 0; i < 8; i++) for (j = 0; j < 3; j++) if (!(i & (1 << j))) e.push(v[i].concat(v[i | (1 << j)]));
-      onSegments(e, COUNT * .3, out, function () { return C.amber; });
+    function saliency() {
+      var out = [], guard = 0, heatColors = [C.blue, C.cyan, C.green, C.amber, C.orange, C.pink];
+      var peaks = [[-.34, .16, .3, 1], [.36, -.14, .22, .86], [.08, .46, .16, .5], [-.58, -.42, .15, .42]];
+      function heat(x, y) {
+        return Math.min(1, peaks.reduce(function (s, p) {
+          return s + p[3] * Math.exp(-((x - p[0]) * (x - p[0]) + (y - p[1]) * (y - p[1])) / (2 * p[2] * p[2]));
+        }, 0));
+      }
+      onSegments(rect(-1, -.76, 1, .76, -.12), COUNT * .08, out, function () { return C.slate; });
+      while (out.length < COUNT && guard++ < 120000) {
+        var x = between(-.97, .97), y = between(-.73, .73), v = heat(x, y);
+        if (rnd() > .24 + v * .76) continue;
+        out.push([x, y, v * .62 - .12, ramp(heatColors, v)]);
+      }
+      return out;
+    }
+    function report() {
+      var z = .12, out = [], lines = [], i;
+      function solid(c) { return function () { return c; }; }
+      function ink(x, y) { return ramp([C.violet, C.blue, C.cyan], (.62 - y) / 1.3); }
+      lines.push([-.2, .58, z, .5, .58, z], [-.2, .49, z, .34, .49, z]);
+      for (i = 0; i < 5; i++) lines.push([-.5, .26 - i * .115, z, i === 4 ? .08 : .5, .26 - i * .115, z]);
+      for (i = 0; i < 3; i++) lines.push([-.5, -.46 - i * .115, z, -.02, -.46 - i * .115, z]);
+      onSegments(lines, COUNT * .36, out, ink);
+      onSegments(rect(-.66, -.92, .66, .84, z).concat(rect(-.72, -.97, .6, .79, -.1)), COUNT * .17, out, solid(C.slate));
+      onSegments(rect(-.22, .78, .22, .96, z), COUNT * .05, out, solid(C.green));
+      onSegments([[.86, .86, z, .86, .38, z], [.62, .62, z, 1.1, .62, z], [.76, .72, z, .96, .52, z], [.96, .72, z, .76, .52, z]], COUNT * .07, out, solid(C.amber));
+      for (i = 0; i < COUNT * .08; i++) {
+        if (rnd() < .5) out.push([between(-.5, -.3), between(.51, .57), z, C.pink]);
+        else out.push([between(-.43, -.37), between(.44, .64), z, C.pink]);
+      }
+      var bars = [[.1, .12], [.22, .26], [.34, .18], [.46, .34]];
       while (out.length < COUNT) {
-        var a = between(0, TAU), b = between(0, TAU), r = .46 + .17 * Math.cos(b);
-        var x = r * Math.cos(a), y = .17 * Math.sin(b), z = r * Math.sin(a);
-        out.push([x, y * .8 + z * .55, z * .8 - y * .55, ramp([C.green, C.cyan, C.blue], (a / TAU + Math.sin(b) * .12 + 1) % 1)]);
+        var b = bars[Math.floor(rnd() * bars.length)];
+        out.push([b[0] + between(-.04, .04), -.72 + rnd() * b[1], z, C.green]);
       }
       return out;
     }
@@ -217,7 +243,8 @@
       { pts: brain(), axis: function (p) { return (p[0] + 1) / 2; } },
       { pts: page(), axis: function (p) { return (1 - p[1]) / 2; } },
       { pts: network(), axis: function (p) { return (p[0] + 1.1) / 2.2; } },
-      { pts: box3d(), axis: function (p) { return (p[1] + 1) / 2; } }
+      { pts: saliency(), axis: function (p) { return (p[0] + 1) / 2; } },
+      { pts: report(), axis: function (p) { return (1 - p[1]) / 2; } }
     ];
     shapes.forEach(function (s, i) {
       s.title = tabs[i].dataset.title;
