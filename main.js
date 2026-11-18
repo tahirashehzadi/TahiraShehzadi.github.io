@@ -94,10 +94,10 @@
   // Home page showcase: one set of points that morphs between the research areas.
   function startCloud() {
     var canvas = $('#cloud'), ctx = canvas.getContext('2d');
-    var title = $('#cloud-title'), text = $('#cloud-text'), caption = $('#cloud-copy');
+    var title = $('#cloud-title'), sub = $('#cloud-sub'), text = $('#cloud-text'), caption = $('#cloud-copy');
     var tabs = $$('[data-cloud]');
     var still = matchMedia('(prefers-reduced-motion: reduce)');
-    var COUNT = 2800, HOLD = 5600, MORPH = 1500, FRAME = 1000 / 30, TAU = Math.PI * 2;
+    var COUNT = 2800, HOLD = 5600, HOLD_MEDICAL = 3000, MORPH = 1300, FRAME = 1000 / 30, TAU = Math.PI * 2;
     var seed = 7, w = 0, h = 0, dark = false;
     var C = {
       pink: [236, 38, 124], orange: [249, 115, 22], violet: [124, 58, 237], blue: [37, 99, 235], cyan: [6, 182, 212],
@@ -127,6 +127,115 @@
         while (k < list.length - 1 && pick > lens[k]) pick -= lens[k++];
         var g = list[k], t = rnd(), x = g[0] + (g[3] - g[0]) * t, y = g[1] + (g[4] - g[1]) * t, z = g[2] + (g[5] - g[2]) * t;
         out.push([x, y, z, paint(x, y, z)]);
+      }
+      return out;
+    }
+    function rect(x0, y0, x1, y1, z) {
+      return [[x0, y0, z, x1, y0, z], [x1, y0, z, x1, y1, z], [x1, y1, z, x0, y1, z], [x0, y1, z, x0, y0, z]];
+    }
+    function ellipsoid(c, r, n, out, paint) {
+      for (var i = 0; i < n; i++) {
+        var d = onSphere(), x = c[0] + d[0] * r[0], y = c[1] + d[1] * r[1], z = c[2] + d[2] * r[2];
+        out.push([x, y, z, paint(x, y, z)]);
+      }
+    }
+    function solid(c) { return function () { return c; }; }
+    function chest() {
+      var out = [], spine = [], n = COUNT * .36, i;
+      function rib() {
+        var k = Math.floor(rnd() * 10), side = rnd() < .5 ? -1 : 1, a = between(-Math.PI / 2, Math.PI / 2);
+        var R = .46 + .4 * Math.sin((k + 1.6) / 11 * Math.PI), y = .78 - k * .16 + .07 * Math.sin(a) - .15 * Math.cos(a);
+        var x = side * R * Math.cos(a), z = .52 * R * Math.sin(a);
+        out.push([x, y, z, ramp([C.cyan, C.blue], (.85 - y) / 1.8)]);
+      }
+      for (i = 0; i < n; i++) rib();
+      for (i = 0; i < 12; i++) spine.push([-.035, .84 - i * .14, -.42, .035, .84 - i * .14, -.42]);
+      onSegments(spine, COUNT * .07, out, solid(C.slate));
+      ellipsoid([-.36, .02, 0], [.28, .62, .27], COUNT * .14, out, solid(C.violet));
+      ellipsoid([.36, .02, 0], [.28, .62, .27], COUNT * .14, out, solid(C.violet));
+      ellipsoid([-.09, -.22, .12], [.2, .24, .16], COUNT * .08, out, solid(C.pink));
+      ellipsoid([.42, .22, .2], [.085, .085, .085], COUNT * .06, out, solid(C.orange));
+      onSegments(rect(.26, .06, .58, .38, .3), COUNT * .05, out, solid(C.amber));
+      while (out.length < COUNT) rib();
+      return out;
+    }
+    function breast() {
+      var out = [], ducts = [], spikes = [], i;
+      function shell(x, y, z) { return (x > .6 ? C.magenta : C.pink); }
+      function branch(p, angle, len, depth) {
+        var q = [p[0] - Math.cos(angle) * len, p[1] + Math.sin(angle) * len, p[2] + between(-.06, .06)];
+        ducts.push(p.concat(q));
+        if (depth) { branch(q, angle + between(.2, .5), len * .72, depth - 1); branch(q, angle - between(.2, .5), len * .72, depth - 1); }
+      }
+      for (i = 0; i < 6; i++) branch([.66, -.02, 0], -.72 + i * .29, .27, 3);
+      onSegments(ducts, COUNT * .34, out, function (x) { return ramp([C.magenta, C.violet], (.7 - x) / 1.3); });
+      onSegments([[-.58, -.86, 0, -.58, .86, 0]], COUNT * .04, out, solid(C.slate));
+      ellipsoid([.72, -.02, 0], [.06, .07, .07], COUNT * .02, out, solid(C.magenta));
+      ellipsoid([.08, .34, .14], [.09, .09, .09], COUNT * .06, out, solid(C.orange));
+      for (i = 0; i < 12; i++) { var a = i / 12 * TAU; spikes.push([.08, .34, .14, .08 + .19 * Math.cos(a), .34 + .19 * Math.sin(a), .14]); }
+      onSegments(spikes, COUNT * .04, out, solid(C.orange));
+      onSegments(rect(-.16, .1, .32, .58, .2), COUNT * .05, out, solid(C.amber));
+      while (out.length < COUNT) {
+        var d = onSphere();
+        if (d[0] < 0) d[0] = -d[0];
+        var x = -.58 + d[0] * 1.26, y = d[1] * .86, z = d[2] * .5;
+        out.push([x, y, z, shell(x, y, z)]);
+      }
+      return out;
+    }
+    function polyp() {
+      var out = [], i;
+      ellipsoid([.36, -.3, .16], [.2, .2, .2], COUNT * .17, out, solid(C.green));
+      onSegments([[.46, -.38, .12, .55, -.46, .08]], COUNT * .02, out, solid(C.green));
+      onSegments(rect(.1, -.58, .64, -.04, .4), COUNT * .06, out, solid(C.cyan));
+      while (out.length < COUNT) {
+        var j = Math.floor(rnd() * 14), d = j / 13, a = between(0, TAU);
+        var r = .84 * (1 - .76 * Math.pow(d, .7)) * (1 + .05 * Math.sin(5 * a + j)) + between(-.008, .008);
+        out.push([r * Math.cos(a) + .1 * Math.sin(d * 3), r * Math.sin(a) + .08 * d, .6 - 1.6 * d, ramp([C.orange, C.pink, C.violet], d)]);
+      }
+      return out;
+    }
+    function skin() {
+      var out = [], A = .55, ca = Math.cos(A), sa = Math.sin(A), i;
+      function top(x, z) { return .28 + .025 * Math.sin(9 * x) * Math.cos(7 * z); }
+      function edge(x, z) {
+        var t = Math.atan2(z - .03, x - .08);
+        return .31 + .07 * Math.sin(3 * t) + .05 * Math.sin(7 * t);
+      }
+      for (i = 0; i < COUNT * .24; i++) {
+        var u = between(-.95, .95), band = rnd(), y = .28 - band * .9;
+        var wave = Math.round(band * 8) / 8, yy = .28 - wave * .9 + .018 * Math.sin(u * 11 + wave * 9);
+        out.push([u, yy, .6, ramp([C.pink, C.orange, C.amber], wave)]);
+      }
+      onSegments([[-.95, .28, .6, -.95, -.62, .6], [.95, .28, .6, .95, -.62, .6], [-.95, -.62, .6, .95, -.62, .6], [.95, .28, .6, .95, .28, -.6], [-.95, .28, .6, -.95, .28, -.6], [-.95, .28, -.6, .95, .28, -.6]], COUNT * .06, out, solid(C.slate));
+      onSegments([[-.36, .31, -.42, .52, .31, -.42], [.52, .31, -.42, .52, .31, .48], [.52, .31, .48, -.36, .31, .48], [-.36, .31, .48, -.36, .31, -.42]], COUNT * .06, out, solid(C.cyan));
+      var guard = 0;
+      while (out.length < COUNT * .56 && guard++ < 90000) {
+        var x = between(-.26, .42), z = between(-.36, .42), rho = Math.hypot(x - .08, z - .03) / edge(x, z);
+        if (rho < 1) out.push([x, top(x, z) + .02, z, ramp([C.violet, C.magenta, C.pink], rho)]);
+      }
+      while (out.length < COUNT) {
+        var sx = between(-.95, .95), sz = between(-.6, .6);
+        if (Math.hypot(sx - .08, sz - .03) / edge(sx, sz) < 1.04) continue;
+        out.push([sx, top(sx, sz), sz, rnd() < .5 ? C.amber : C.orange]);
+      }
+      return out.map(function (p) { return [p[0], p[1] * ca - p[2] * sa + .12, p[2] * ca + p[1] * sa, p[3]]; });
+    }
+    function tooth() {
+      var out = [], i;
+      for (i = 0; i < COUNT * .3; i++) {
+        var t = rnd(), a = between(0, TAU), r = .54 * (.84 + .16 * Math.sin(Math.PI * t)) * (1 + .05 * Math.cos(4 * a));
+        out.push([r * Math.cos(a), .16 + .54 * t, r * .8 * Math.sin(a), ramp([C.blue, C.cyan], t)]);
+      }
+      for (i = 0; i < COUNT * .16; i++) {
+        var ca = between(0, TAU), rho = .5 * Math.sqrt(rnd()), cusp = .1 * Math.cos(2 * ca) * (rho / .5) + .07 * Math.cos(4 * ca) * (rho / .5);
+        out.push([rho * Math.cos(ca), .68 + cusp - .08 * (1 - rho / .5), rho * .8 * Math.sin(ca), C.cyan]);
+      }
+      ellipsoid([.25, -.42, .15], [.1, .14, .05], COUNT * .06, out, solid(C.orange));
+      onSegments(rect(.06, -.64, .46, -.2, .26), COUNT * .05, out, solid(C.pink));
+      while (out.length < COUNT) {
+        var s = rnd() < .5 ? -1 : 1, q = rnd(), b = between(0, TAU), rr = .25 * Math.pow(1 - q, .7) + .012;
+        out.push([s * (.21 + .1 * q) + rr * Math.cos(b), .17 - 1.02 * q, rr * .8 * Math.sin(b), ramp([C.green, C.cyan], q * .6)]);
       }
       return out;
     }
@@ -163,7 +272,6 @@
     }
     function page() {
       var z = .14, out = [], body = [], table = [], i;
-      function solid(c) { return function () { return c; }; }
       for (i = 0; i < 5; i++) body.push([-.54, .5 - i * .085, z, i === 4 ? .04 : .54, .5 - i * .085, z]);
       for (i = 0; i < 3; i++) body.push([-.54, -.66 - i * .085, z, .54, -.66 - i * .085, z]);
       for (i = 0; i < 4; i++) table.push([.04, -.1 - i * .133, z, .54, -.1 - i * .133, z]);
@@ -219,7 +327,6 @@
     }
     function report() {
       var z = .12, out = [], lines = [], i;
-      function solid(c) { return function () { return c; }; }
       function ink(x, y) { return ramp([C.violet, C.blue, C.cyan], (.62 - y) / 1.3); }
       lines.push([-.2, .58, z, .5, .58, z], [-.2, .49, z, .34, .49, z]);
       for (i = 0; i < 5; i++) lines.push([-.5, .26 - i * .115, z, i === 4 ? .08 : .5, .26 - i * .115, z]);
@@ -240,15 +347,23 @@
       return out;
     }
     var shapes = [
-      { pts: brain(), axis: function (p) { return (p[0] + 1) / 2; } },
-      { pts: page(), axis: function (p) { return (1 - p[1]) / 2; } },
-      { pts: network(), axis: function (p) { return (p[0] + 1.1) / 2.2; } },
-      { pts: attribution(), axis: function (p) { return (p[0] + 1) / 2; } },
-      { pts: report(), axis: function (p) { return (1 - p[1]) / 2; } }
+      { tab: 0, sub: 'Chest imaging', pts: chest(), axis: function (p) { return (1 - p[1]) / 2; } },
+      { tab: 0, sub: 'Breast imaging', pts: breast(), axis: function (p) { return (1 - p[0]) / 2; } },
+      { tab: 0, sub: 'Polyp detection', pts: polyp(), axis: function (p) { return (.6 - p[2]) / 1.6; } },
+      { tab: 0, sub: 'Skin lesions', pts: skin(), axis: function (p) { return (p[0] + 1) / 2; } },
+      { tab: 0, sub: 'Dental imaging', pts: tooth(), axis: function (p) { return (.8 - p[1]) / 1.7; } },
+      { tab: 1, pts: page(), axis: function (p) { return (1 - p[1]) / 2; } },
+      { tab: 2, pts: network(), axis: function (p) { return (p[0] + 1.1) / 2.2; } },
+      { tab: 3, pts: attribution(), axis: function (p) { return (p[0] + 1) / 2; } },
+      { tab: 4, pts: report(), axis: function (p) { return (1 - p[1]) / 2; } }
     ];
+    var first = [], size = [];
     shapes.forEach(function (s, i) {
-      s.title = tabs[i].dataset.title;
-      s.text = tabs[i].dataset.text;
+      s.title = tabs[s.tab].dataset.title;
+      s.text = tabs[s.tab].dataset.text;
+      s.hold = s.sub ? HOLD_MEDICAL : HOLD;
+      if (first[s.tab] === undefined) first[s.tab] = i;
+      size[s.tab] = (size[s.tab] || 0) + 1;
       while (s.pts.length > COUNT) s.pts.pop();
       s.pts.forEach(function (p) { p[4] = s.axis(p); });
       // Shuffle so points travel across the shape while morphing.
@@ -264,9 +379,11 @@
     function setCopy(i) {
       var s = shapes[i];
       tabs.forEach(function (b, k) {
-        b.setAttribute('aria-pressed', String(k === i));
-        if (k !== i) b.firstChild.style.transform = 'scaleX(0)';
+        b.setAttribute('aria-pressed', String(k === s.tab));
+        if (k !== s.tab) b.firstChild.style.transform = 'scaleX(0)';
       });
+      sub.textContent = s.sub || '';
+      sub.hidden = !s.sub;
       if (title.textContent === s.title) return;
       title.textContent = s.title;
       text.textContent = s.text;
@@ -328,15 +445,16 @@
       if (document.hidden || still.matches || current !== 'about') return;
       clock += dt;
       if (to !== null && clock - since >= MORPH) { from = to; to = null; since = clock; }
-      if (to === null && clock - since >= HOLD) go((from + 1) % shapes.length);
-      var active = to === null ? from : to, done = to === null ? (clock - since) / HOLD : 0;
-      tabs[active].firstChild.style.transform = 'scaleX(' + Math.min(1, done) + ')';
+      if (to === null && clock - since >= shapes[from].hold) go((from + 1) % shapes.length);
+      var active = to === null ? from : to, s = shapes[active];
+      var done = to === null ? Math.min(1, (clock - since) / s.hold) : 0;
+      tabs[s.tab].firstChild.style.transform = 'scaleX(' + (active - first[s.tab] + done) / size[s.tab] + ')';
       if (clock - lastDraw < FRAME) return;
       lastDraw = clock;
       draw();
     }
     function readTheme() { dark = root.classList.contains('dark'); draw(); }
-    tabs.forEach(function (b, i) { b.addEventListener('click', function () { go(i); }); });
+    tabs.forEach(function (b, i) { b.addEventListener('click', function () { go(first[i]); }); });
     new MutationObserver(readTheme).observe(root, { attributes: true, attributeFilter: ['class'] });
     new ResizeObserver(resize).observe(canvas);
     still.addEventListener('change', function () { go(from); });
