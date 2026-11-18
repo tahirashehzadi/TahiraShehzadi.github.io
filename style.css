@@ -130,6 +130,19 @@ a { color: var(--accent); text-underline-offset: 3px; }
 .teaser img { width: 100%; max-height: 210px; object-fit: contain; }
 .empty { margin-top: 28px; padding: 26px; border: 1px dashed var(--line); text-align: center; }
 .note { margin-top: 20px; color: var(--muted); font-size: .875rem; }
+.proj-part + .proj-part { margin-top: 56px; }
+.proj-part > h2 { margin-bottom: 20px; font-size: 1.5rem; }
+.work-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.work-grid article { padding: 18px; background: var(--soft); border-top: 2px solid var(--accent); }
+.work-grid h3 { margin-bottom: 7px; font-size: 1.0625rem; line-height: 1.3; }
+.work-grid p { font-size: .9688rem; line-height: 1.5; }
+.thesis { padding: 24px; border: 1px solid var(--line); border-radius: 4px; background: var(--card); }
+.thesis h3 { margin: 3px 0 9px; font-size: 1.3125rem; }
+.thesis > p:not(.meta) { max-width: 72ch; }
+.thesis dl { display: grid; gap: 8px; margin: 18px 0 0; }
+.thesis dl div { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px; }
+.thesis dt { color: var(--ink); font-weight: 600; }
+.thesis dd { margin: 0; overflow-wrap: anywhere; }
 .project { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); gap: 32px; align-items: start; padding-bottom: 44px; margin-bottom: 44px; border-bottom: 1px solid var(--line); }
 .project:last-child { border: 0; margin: 0; padding: 0; }
 .media { background: #fff; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
@@ -194,6 +207,8 @@ pre { overflow: auto; max-height: 50vh; padding: 14px; margin: 0 0 14px; backgro
   .honors li { grid-template-columns: 1fr; gap: 2px; }
   .contacts { grid-template-columns: 1fr; }
   .project { grid-template-columns: 1fr; gap: 18px; }
+  .work-grid { grid-template-columns: 1fr; }
+  .thesis { padding: 18px; }
   .venues { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 520px) { .flips { grid-template-columns: 1fr; } .actions .btn { flex: 1 1 100%; justify-content: center; } }
