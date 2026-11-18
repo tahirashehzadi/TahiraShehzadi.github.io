@@ -91,6 +91,71 @@
     if (!r.ok) cv.remove();
   }).catch(function () { cv.remove(); });
 
+  // Home page background: waves spreading through a grid, like labels propagating to unlabeled points.
+  function startField() {
+    var canvas = $('#field');
+    var ctx = canvas.getContext('2d');
+    var still = matchMedia('(prefers-reduced-motion: reduce)');
+    var GAP = 26, SPEED = 34, REACH = 560, BAND = 52, FRAME = 1000 / 30;
+    var SEEDS = [[.74, .22, 0], [.95, .72, 1 / 3], [.58, .9, 2 / 3]];
+    var w = 0, h = 0, dots = [], last = 0, color = '#000', base = .14;
+
+    function smooth(a, b, x) {
+      var t = Math.min(1, Math.max(0, (x - a) / (b - a)));
+      return t * t * (3 - 2 * t);
+    }
+    function readTheme() {
+      color = getComputedStyle(root).getPropertyValue('--accent').trim();
+      base = root.classList.contains('dark') ? .2 : .14;
+    }
+    function resize() {
+      var r = canvas.getBoundingClientRect(), dpr = Math.min(devicePixelRatio || 1, 2);
+      w = r.width; h = r.height;
+      if (!w || !h) return;
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var wide = w > 760;
+      var textEnd = $('.intro').getBoundingClientRect().right - r.left;
+      dots = [];
+      for (var y = GAP / 2; y < h; y += GAP) for (var x = GAP / 2; x < w; x += GAP) {
+        // Keep the grid away from the text column.
+        var keep = wide ? smooth(textEnd + 10, textEnd + 100, x) : 1 - smooth(120, 300, y);
+        if (keep > .02) dots.push([x, y, keep]);
+      }
+      draw(last);
+    }
+    function draw(ms) {
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = color;
+      var t = still.matches ? null : ms / 1000;
+      dots.forEach(function (d) {
+        var glow = 0;
+        if (t !== null) SEEDS.forEach(function (s) {
+          var r = (t * SPEED + s[2] * REACH) % REACH;
+          var off = (Math.hypot(d[0] - s[0] * w, d[1] - s[1] * h) - r) / BAND;
+          if (Math.abs(off) < 2.5) glow = Math.max(glow, Math.exp(-off * off) * (1 - r / REACH));
+        });
+        var size = 2 + glow * 1.6;
+        ctx.globalAlpha = d[2] * (base + glow * .6);
+        ctx.fillRect(d[0] - size / 2, d[1] - size / 2, size, size);
+      });
+      ctx.globalAlpha = 1;
+    }
+    function tick(ms) {
+      requestAnimationFrame(tick);
+      if (document.hidden || still.matches || current !== 'about' || ms - last < FRAME) return;
+      last = ms;
+      draw(ms);
+    }
+    readTheme();
+    new MutationObserver(function () { readTheme(); draw(last); }).observe(root, { attributes: true, attributeFilter: ['class'] });
+    new ResizeObserver(resize).observe(canvas);
+    still.addEventListener('change', function () { draw(last); });
+    requestAnimationFrame(tick);
+  }
+
   window.addEventListener('hashchange', function () { route(false); });
   route(true);
+  startField();
 })();
