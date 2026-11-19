@@ -236,7 +236,7 @@
       });
       return onSegments(links, COUNT - out.length, out, paint);
     }
-    function saliency() {
+    function attribution() {
       var out = [], guard = 0, heatColors = [C.blue, C.cyan, C.green, C.amber, C.orange, C.pink];
       var peaks = [[-.34, .16, .3, 1], [.36, -.14, .22, .86], [.08, .46, .16, .5], [-.58, -.42, .15, .42]];
       function heat(x, y) {
@@ -279,7 +279,7 @@
       { tab: 0, sub: 'Skin lesions', pts: skin(), axis: function (p) { return (p[0] + 1) / 2; } },
       { tab: 1, pts: page(), axis: function (p) { return (1 - p[1]) / 2; } },
       { tab: 2, pts: network(), axis: function (p) { return (p[0] + 1.1) / 2.2; } },
-      { tab: 3, pts: saliency(), axis: function (p) { return (p[0] + 1) / 2; } },
+      { tab: 3, pts: attribution(), axis: function (p) { return (p[0] + 1) / 2; } },
       { tab: 4, pts: report(), axis: function (p) { return (1 - p[1]) / 2; } }
     ];
     var first = [], size = [];
