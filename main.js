@@ -445,6 +445,12 @@
     requestAnimationFrame(tick);
   }
 
+  var more = $('#news-more');
+  if (more) more.addEventListener('click', function () {
+    var open = $('#news').classList.toggle('all');
+    this.setAttribute('aria-expanded', String(open));
+    this.textContent = open ? 'Show fewer' : 'Show all news (' + $$('#news li').length + ')';
+  });
   window.addEventListener('hashchange', function () { route(false); });
   route(true);
   startCloud();

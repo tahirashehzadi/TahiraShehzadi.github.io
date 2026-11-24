@@ -349,3 +349,8 @@ dialog { border-radius: 20px; }
 .lead-list strong { color: var(--ink); font-weight: 600; }
 @media (max-width: 1100px) { .agenda { grid-template-columns: 1fr; } }
 @media (max-width: 560px) { .lead-list li { grid-template-columns: 1fr; gap: 2px; } }
+
+/* News list */
+.news-more { display: none; margin-top: 18px; min-height: 38px; padding: 6px 16px; font-size: .9063rem; }
+.js .news-more { display: inline-flex; }
+.js #news:not(.all) li:nth-child(n+7) { display: none; }
