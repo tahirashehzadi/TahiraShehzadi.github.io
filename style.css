@@ -280,12 +280,12 @@ dialog { border-radius: 20px; }
 @media (max-width: 520px) { .sel { grid-template-columns: 1fr; } .sel-img { height: 140px; } }
 
 /* Galaxy ending */
-.galaxy { position: relative; overflow: hidden; height: clamp(380px, 42vw, 520px); background: radial-gradient(70% 90% at 12% 10%, #101237, transparent 70%), radial-gradient(50% 60% at 92% 0%, #24130f, transparent 70%), #07070f; color: #d9d9e3; }
+.galaxy { position: relative; overflow: hidden; height: clamp(240px, 26vw, 340px); background: radial-gradient(70% 90% at 12% 10%, #101237, transparent 70%), radial-gradient(50% 60% at 92% 0%, #24130f, transparent 70%), #07070f; color: #d9d9e3; }
 .galaxy::before { content: ""; position: absolute; inset: 0 0 auto; z-index: 1; height: 90px; background: linear-gradient(var(--bg), transparent); pointer-events: none; }
 .stars { position: absolute; inset: 0; }
 .stars i { position: absolute; width: var(--s); height: var(--s); background: #fff; clip-path: polygon(50% 0, 58% 42%, 100% 50%, 58% 58%, 50% 100%, 42% 58%, 0 50%, 42% 42%); animation: twinkle var(--t) ease-in-out var(--d) infinite alternate; }
 @keyframes twinkle { from { opacity: .18; transform: scale(.72) rotate(0); } to { opacity: .95; transform: scale(1.08) rotate(24deg); } }
-.planet { position: absolute; left: 50%; top: 64%; width: max(1500px, 190vw); aspect-ratio: 1; margin-left: calc(max(1500px, 190vw) / -2); border-radius: 50%; background: radial-gradient(circle at 50% 0, #27306e 0, #171b4a 12%, #0d0f2c 34%); box-shadow: 0 -1px 2px #d9f7ff, 0 -3px 12px rgb(112 214 235 / .85), 0 -12px 42px rgb(88 124 255 / .5), 0 -40px 120px rgb(92 80 230 / .28); animation: planet-breathe 9s ease-in-out infinite alternate; }
+.planet { position: absolute; left: 50%; top: 46%; width: max(1500px, 190vw); aspect-ratio: 1; margin-left: calc(max(1500px, 190vw) / -2); border-radius: 50%; background: radial-gradient(circle at 50% 0, #27306e 0, #171b4a 12%, #0d0f2c 34%); box-shadow: 0 -1px 2px #d9f7ff, 0 -3px 12px rgb(112 214 235 / .85), 0 -12px 42px rgb(88 124 255 / .5), 0 -40px 120px rgb(92 80 230 / .28); animation: planet-breathe 9s ease-in-out infinite alternate; }
 .planet::before { content: ""; position: absolute; left: 50%; top: -2px; width: 24%; height: 16px; margin-left: -12%; border-radius: 50%; background: radial-gradient(50% 50% at 50% 50%, #f4eef8, rgb(205 225 245 / .55) 55%, transparent 76%); filter: blur(3px); animation: rim-sweep 12s ease-in-out infinite alternate; }
 @keyframes planet-breathe { to { filter: brightness(1.22); transform: translateY(-8px); } }
 @keyframes rim-sweep { from { transform: translateX(-7%) scaleX(.9); opacity: .78; } to { transform: translateX(7%) scaleX(1.06); opacity: 1; } }
